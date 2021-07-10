@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
-import Post from '../components/Post'
+import FeedItem from '../components/FeedItem'
 
 const styles = StyleSheet.create({
     container: {
@@ -12,26 +12,6 @@ const styles = StyleSheet.create({
         marginTop: 8,
         marginBottom: 8,
         borderRadius: 5,
-        backgroundColor: '#FFF',
-        elevation: 2,
-    },
-    title: {
-        fontSize: 16,
-        color: '#000',
-    },
-    container_text: {
-        flex: 1,
-        flexDirection: 'column',
-        marginLeft: 12,
-        justifyContent: 'center',
-    },
-    description: {
-        fontSize: 11,
-        fontStyle: 'italic',
-    },
-    photo: {
-        height: 200,
-        width: 200,
     },
 });
 //keyExtracetor={(item) => item.id}
@@ -40,7 +20,7 @@ const Feed = ({ itemList }: any) => (
     <View style={styles.container}>
         <FlatList
                 data={itemList}
-                renderItem={({ item }) => <Post
+                renderItem={({ item }) => <FeedItem
                     title={item.title}
                     description={item.description}
                     image_url={item.image_url}

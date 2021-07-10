@@ -14,6 +14,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import LoginScreen from '../screens/LoginScreen';
 import DrawerNavigator from './DrawerNavigator';
+import FloatingButton from '../components/FloatingButton';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -21,6 +22,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <RootNavigator />
+      <FloatingButton />
     </NavigationContainer>
   );
 }
@@ -34,8 +36,8 @@ function RootNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Root" component={BottomTabNavigator} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Screen name="Login" component={LoginScreen} options={{title: 'LOGIN'}} />
-      <Stack.Screen name="Drawer" component={DrawerNavigator} />
+      {/* <Stack.Screen name="Login" component={LoginScreen} options={{title: 'LOGIN'}} /> */}
+      {/* <Stack.Screen name="Drawer" component={DrawerNavigator} /> */}
     </Stack.Navigator>
   );
 }

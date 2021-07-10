@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
 
 type Props = {
     title: string,
@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         padding: 10,
-        marginRight:16,
+        marginStart: 10,
+        marginRight:10,
         marginTop: 8,
         marginBottom: 8,
         borderRadius: 5,
@@ -49,14 +50,17 @@ const styles = StyleSheet.create({
         //backgroundColor: 'brown'
     },
     icon: {
-        marginRight: 80,
+        marginRight: 50,
+        paddingLeft: 10,
+        alignSelf: 'center'
         //backgroundColor: 'yellow'
     },
 });
 
 const ProfileItem = (props: Props) => {
     return(
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container}>
+            
             <View style={styles.icon}>{props.icon}</View>
             <View style={styles.container_text}>
                 <Text style={styles.title}>
@@ -67,7 +71,7 @@ const ProfileItem = (props: Props) => {
                 </Text>
             </View>
 
-        </View>
+        </TouchableOpacity>
     );
 }
 
