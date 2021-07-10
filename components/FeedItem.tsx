@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 
 const FeedItem = (props: Props) => {
     return(
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container}>
             <View style={{flex: 1, flexDirection: 'column', marginBottom: 10}}>
         
                 <Image source={props.image_url} style={styles.photo} />
@@ -72,7 +72,7 @@ const FeedItem = (props: Props) => {
                     </Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 

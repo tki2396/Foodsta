@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Image, FlatList } from 'react-native';
 
 type Props = {
     title: string,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 
 export const RecipeItem = (props: Props) => {
     return(
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}}>
             <View style={styles.card}>
                 <View style={styles.cardData}>
                     <Image source={require("../assets/images/food.jpg")} style={styles.photo}/>
@@ -60,7 +60,7 @@ export const RecipeItem = (props: Props) => {
                     <Text style={{fontWeight: 'normal', fontStyle:'italic', fontSize: 12, textAlign: 'center'}}>{ props.description }</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
