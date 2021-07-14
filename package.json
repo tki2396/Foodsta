@@ -12,13 +12,20 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^3.21.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.21.0",
+    "@aws-sdk/client-dynamodb": "^3.21.0",
+    "@aws-sdk/client-s3": "^3.21.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.21.0",
     "@expo/vector-icons": "^12.0.0",
+    "@react-native-async-storage/async-storage": "^1.15.5",
     "@react-native-community/cameraroll": "^4.0.4",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "5.11.2",
     "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "~5.8.10",
-    "@react-navigation/stack": "~5.12.8",
+    "@react-navigation/stack": "^5.12.8",
+    "amazon-cognito-identity-js": "^5.0.4",
     "expo": "~42.0.0",
     "expo-asset": "~8.3.2",
     "expo-constants": "~11.0.1",
@@ -38,7 +45,8 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-vector-icons": "^8.1.0",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "util": "^0.12.4"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

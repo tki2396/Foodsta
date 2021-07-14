@@ -10,6 +10,16 @@ export default {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
+      Login: {
+        screens: {
+          LoginScreen: 'loginscreen'
+        },
+      },
+      Registration: {
+        screens: {
+          LoginScreen: 'registration'
+        },
+      },
       Root: {
         screens: {
           Home: {

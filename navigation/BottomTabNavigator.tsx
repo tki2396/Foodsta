@@ -14,8 +14,8 @@ import useColorScheme from '../hooks/useColorScheme';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import RecipeScreen from '../screens/RecipeScreen';
-import LoginScreen from '../screens/LoginScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, RecipesParamList, LoginParamList, DrawerRouteConfig } from '../types';
+// import LoginScreen from '../screens/LoginScreen';
+import { BottomTabParamList, TabOneParamList, TabTwoParamList, RecipesParamList, AuthParamList, DrawerRouteConfig } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -48,13 +48,13 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }: any) => <TabBarIcon name="ios-code" color={color} />,
         }}
       />
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="Login"
         component={LoginNavigator}
         options={{
           tabBarIcon: ({ color }: any) => <TabBarIcon name="ios-code" color={color} />,
         }}
-      />
+      /> */}
     </BottomTab.Navigator>
 
   );
@@ -79,11 +79,6 @@ function HomeNavigator() {
         component={HomeScreen}
         options={{ headerTitle: 'Home' }}
       />
-      <HomeStack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={{ headerTitle: 'Login' }}
-      />
     </HomeStack.Navigator>
   );
 }
@@ -102,19 +97,19 @@ function ProfileNavigator() {
   );
 }
 
-const LoginStack = createStackNavigator<LoginParamList>();
+// const LoginStack = createStackNavigator<LoginParamList>();
 
-function LoginNavigator() {
-  return (
-    <LoginStack.Navigator>
-      <LoginStack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={{ headerTitle: 'LOGIN' }}
-      />
-    </LoginStack.Navigator>
-  );
-}
+// function LoginNavigator() {
+//   return (
+//     <LoginStack.Navigator>
+//       <LoginStack.Screen
+//         name="LoginScreen"
+//         component={LoginScreen}
+//         options={{ headerTitle: 'LOGIN' }}
+//       />
+//     </LoginStack.Navigator>
+//   );
+// }
 
 
 const RecipesStack = createStackNavigator<RecipesParamList>();

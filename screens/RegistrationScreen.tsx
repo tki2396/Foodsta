@@ -4,60 +4,77 @@ import { StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native';
 import { executeSignup } from '../services/cognito/SignUpService'
 import { Text, View } from '../components/Themed';
 
-import { AuthParamList } from '../types';
+import { RootStackParamList } from '../types';
 
-export default function LginScreen({
+export default function RegistrationScreen({
     navigation,
-  }: StackScreenProps<AuthParamList, 'Login'>) {
+  }: StackScreenProps<RootStackParamList, 'Login'>) {
+
+    const [firstName, setFirstName] = React.useState('');
+    const [lastName, setlastName] = React.useState('');
+    const [email, setEmail] = React.useState('');
 
     const [userName, setUserName] = React.useState('');
     const [password, setPassword] = React.useState('');
 
-    // return (
-    //   <View style={styles.container}>
-    //     <Text style={styles.title}>This screen doesn't exist.</Text>
-    //     <TouchableOpacity onPress={() => navigation.replace('Root')} style={styles.link}>
-    //       <Text style={styles.linkText}>Go to home screen!</Text>
-    //     </TouchableOpacity>
-    //     <LoginComponent />
-    //   </View>
-    // );
+
     return (
         <View style={styles.container}>
             <Image source = {require('../assets/images/food.jpg')} style={[styles.image]}/>
             <View style={[styles.inputView]}>
                 <TextInput
                     style={styles.TextInput}
-                    placeholder="Username"
+                    placeholder="First Name"
                     placeholderTextColor="#003f5c"
-                    onChangeText={(userName) => {
-                        setUserName(userName)
+                    onChangeText={(firstName) => {
+                        setFirstName(firstName)
                         // console.warn(userName)
-                    } }
+                    }}
                 />
             </View>
     
             <View style={[styles.inputView]}>
                 <TextInput
                     style={styles.TextInput}
-                    placeholder="Password."
+                    placeholder="Last name"
                     placeholderTextColor="#003f5c"
                     secureTextEntry={true}
-                    onChangeText={(password) => setPassword(password)}
-                    // onChangeText={(password) => this.setState({'password': password})}
+                    onChangeText={(lastName) => setlastName(lastName)}
                 />
             </View>
-            <TouchableOpacity onPress={() => {
-                    navigation.push('Registration')
-                }}>
-                <Text style={styles.forgotPasswordButton}>No account? Sign up now!</Text>
-            </TouchableOpacity>            
+            <View style={[styles.inputView]}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Email"
+                    placeholderTextColor="#003f5c"
+                    secureTextEntry={true}
+                    onChangeText={(email) => setlastName(email)}
+                />
+            </View>
+            <View style={[styles.inputView]}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="userName"
+                    placeholderTextColor="#003f5c"
+                    secureTextEntry={true}
+                    onChangeText={(userName) => setlastName(userName)}
+                />
+            </View>
+            <View style={[styles.inputView]}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Password"
+                    placeholderTextColor="#003f5c"
+                    secureTextEntry={true}
+                    onChangeText={(password) => setlastName(password)}
+                />
+            </View>
             <TouchableOpacity style={styles.loginButton}
                 onPress={() => {
-                    //executeSignup(userName, password);
+                    executeSignup(userName, password);
                     navigation.replace('Root')
                 }}>
-                <Text>LOGIN</Text>
+                <Text>SUBMIT</Text>
             </TouchableOpacity>
         </View>
     );

@@ -6,7 +6,6 @@
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
-  Login: undefined;
   Drawer: undefined;
 };
 
@@ -29,7 +28,8 @@ export type RecipesParamList = {
   FeedScreen: undefined;
 };
 
-export type LoginParamList = {
+export type AuthParamList = {
+  RegistrationScreen: undefined,
   LoginScreen: undefined;
 }
 
