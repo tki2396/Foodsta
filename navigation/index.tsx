@@ -13,9 +13,10 @@ import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import LoginScreen from '../screens/LoginScreen';
-import DrawerNavigator from './DrawerNavigator';
+import AuthStackNavigator from './AuthStackNavigator';
 import PostModal from '../components/PostModal';
 import RegistrationScreen from '../screens/RegistrationScreen'
+import RecipeScreen from '../screens/RecipeScreen';
 // import SplashScreen from '../screens/SplashScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -36,9 +37,10 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="login">
-      <Stack.Screen name="login" component={LoginScreen} />
+      <Stack.Screen name="login" component={AuthStackNavigator} />
       <Stack.Screen name="Root" component={BottomTabNavigator} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <Stack.Screen name="Recipes" component={RecipeScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
 }

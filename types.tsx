@@ -26,7 +26,9 @@ export type TabTwoParamList = {
 
 export type RecipesParamList = {
   CategoryScreen: undefined;
-  RecipeScreen: undefined;
+  RecipeScreen: {
+    cuisine: string
+  };
 };
 
 export type AuthParamList = {

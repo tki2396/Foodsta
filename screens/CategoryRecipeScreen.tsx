@@ -1,17 +1,24 @@
 import * as React from 'react'
 import { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native';
+import { StyleSheet, TouchableOpacity, ActivityIndicator, FlatList, Button } from 'react-native';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RecipesParamList } from '../types';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import Feed from '../components/feed';
 
-export default function HomeScreen({cuisine}: any) {
+export default function CategoryRecipeScreen({
+  route
+}: StackScreenProps<RecipesParamList, 'CategoryRecipeScreen'>) {
+
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const {cuisine} = route.params
 
   useEffect(() => {
-    fetch('https://tq1j7avrgh.execute-api.us-east-2.amazonaws.com/default/getRecipesByCuisine', {
+    
+    fetch('https://j59unal3k2.execute-api.us-east-2.amazonaws.com/default/getRecipesByCuisine', {
       method: 'POST',
       headers: {
       },
@@ -25,23 +32,14 @@ export default function HomeScreen({cuisine}: any) {
       .finally(() => setLoading(false));
   }, []);
 
+
   return (
-    <View style={styles.container}>
+    
+  <View style={styles.container}>
       {isLoading ? <ActivityIndicator/> : (
-        <Feed itemList={data}/>  
+        <Feed itemList={data.Items}/>  
       )}
     </View>
-    // <View style={{ flex: 1, padding: 24 }}>
-    //   {isLoading ? <ActivityIndicator/> : (
-    //     <FlatList
-    //       data={data}
-    //       keyExtractor={({ id }, index) => id}
-    //       renderItem={({ item }) => (
-    //         <Text>{item.cuisine}, {item.title}</Text>
-    //       )}
-    //     />
-    //   )}
-    // </View>
   );
 }
 const styles = StyleSheet.create({

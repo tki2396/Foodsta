@@ -11,7 +11,7 @@ export default function HomeScreen() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('https://tq1j7avrgh.execute-api.us-east-2.amazonaws.com/default/GetRecipesFromDB')
+    fetch("https://j59unal3k2.execute-api.us-east-2.amazonaws.com/default/GetRecipesFromDB")
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
@@ -28,9 +28,8 @@ export default function HomeScreen() {
     //   {isLoading ? <ActivityIndicator/> : (
     //     <FlatList
     //       data={data}
-    //       keyExtractor={({ id }, index) => id}
     //       renderItem={({ item }) => (
-    //         <Text>{item.cuisine}, {item.title}</Text>
+    //         <Text>{item}</Text>
     //       )}
     //     />
     //   )}

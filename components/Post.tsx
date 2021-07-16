@@ -1,27 +1,60 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
 
 type Props = {
     title: string,
-    image_url?: string,
     description: string,
+    image_url: string
 };
+
+
+const Post = (props: Props) => {
+    const [modalVisible, setModalVisible] = useState(false);
+
+    return(
+        <TouchableOpacity style={styles.container}>
+            <View style={{flex: 1, flexDirection: 'column', marginBottom: 10}}>
+        
+                <Image style={styles.photo} source={{uri: props.image_url}}/>
+                <View style={styles.container_text}>
+                    <Text style={styles.title}>
+                        {props.title}
+                    </Text>
+                    <Text style={styles.description}>
+                        {props.description}
+                    </Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
-        padding: 10,
-        marginRight:16,
-        marginTop: 8,
-        marginBottom: 8,
-        borderRadius: 5,
+        borderRadius:20,
+        elevation: 3,
         backgroundColor: '#FFF',
-        elevation: 2,
+        shadowOffset: {
+            width: 1,
+            height: 1
+        },
+        shadowColor: '#333',
+        shadowOpacity: 0.3,
+        shadowRadius: 2,
+        marginHorizontal: 4,
+        height: 350,
+        width: "98%",
+        justifyContent: 'center',
+        marginBottom: 10,
     },
     title: {
         fontSize: 16,
         color: '#000',
+        fontWeight: 'bold',
+        marginTop: 30,
+        textAlign: 'center'
     },
     container_text: {
         flex: 1,
@@ -30,31 +63,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     description: {
+        marginTop: 10,
         fontSize: 11,
         fontStyle: 'italic',
     },
     photo: {
-        height: 80,
-        width: 80,
+        height: 200,
+        width: 300,
+        flex: 1,
+        alignSelf:'center',
+        borderRadius: 15,
+        marginTop: 15
+    },
+    icon: {
+        marginRight: 50,
+        paddingLeft: 10,
+        alignSelf: 'center'
     },
 });
-
-const Post = (props: Props) => {
-    return(
-        <View style={styles.container}>
-            <Image source={{uri: props.image_url}} style={styles.photo} />
-            <View style={styles.container_text}>
-                <Text style={styles.title}>
-                    {props.title}
-                </Text>
-                <Text style={styles.description}>
-                    {props.description}
-                </Text>
-            </View>
-
-        </View>
-    );
-}
-
-
 export default Post;

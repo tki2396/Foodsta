@@ -98,33 +98,18 @@ function ProfileNavigator() {
   );
 }
 
-// const LoginStack = createStackNavigator<LoginParamList>();
-
-// function LoginNavigator() {
-//   return (
-//     <LoginStack.Navigator>
-//       <LoginStack.Screen
-//         name="LoginScreen"
-//         component={LoginScreen}
-//         options={{ headerTitle: 'LOGIN' }}
-//       />
-//     </LoginStack.Navigator>
-//   );
-// }
-
-
 const RecipesStack = createStackNavigator<RecipesParamList>();
 
 function RecipesNavigator() {
   return (
-    <RecipesStack.Navigator initialRouteName="CategoryScreen">
+    <RecipesStack.Navigator initialRouteName="RecipeScreen">
       <RecipesStack.Screen
-        name="CategoryScreen"
+        name="RecipeScreen"
         component={RecipeScreen}
         options={{ headerTitle: 'Recipes' }}
       />
       <RecipesStack.Screen 
-        name="RecipesScreen"
+        name="CategoryRecipesScreen"
         component={CategoryRecipeScreen}
       />
     </RecipesStack.Navigator>

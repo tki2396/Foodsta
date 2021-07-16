@@ -2,13 +2,12 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Button, TouchableHighlight, TouchableOpacity} from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { getCustomTabsSupportingBrowsersAsync } from 'expo-web-browser';
 import DrawerNavigator from '../navigation/DrawerNavigator'
 import {useNavigation} from '@react-navigation/native';
-import { DrawerRouteConfig, DrawerParamList } from '../types';
+import { DrawerRouteConfig, DrawerParamList, RootStackParamList } from '../types';
 import Sandbox from '../components/Sandbox'
 import { RecipeItem } from '../components/RecipeItem';
 import layout from '../constants/Layout'
@@ -16,28 +15,12 @@ import { FlatList } from 'react-native-gesture-handler';
 import { cuisines } from '../constants/Constants'
 import { RecipesParamList } from '../types';
 
-const RecipeScreen = ({
-  props
-}: StackScreenProps<RecipesParamList, 'CategoryScreen'>) =>  {
+export default function RecipeScreen({
+  navigation
+}: StackScreenProps<RecipesParamList, 'RecipeScreen'>) {
 
-  const navigation = props;
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch('https://tq1j7avrgh.execute-api.us-east-2.amazonaws.com/default/getRecipesByCuisine', {
-      method: 'POST',
-      headers: {
-      },
-      body: JSON.stringify({
-        "cuisine": "American"
-      })
-    })
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -47,7 +30,7 @@ const RecipeScreen = ({
           data={DATA}
           keyExtractor={item => item.id}
           renderItem={({ item }) =>
-          <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}} onPress={() => navigation.navigate('CategoryScreen')}>
+          <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}} onPress={() => navigation.navigate('CategoryRecipesScreen', {cuisine: item.title})}>
 
             <RecipeItem
               title={item.title}
@@ -123,5 +106,3 @@ const DATA = [
     image: require('../assets/images/food/thai_food.jpeg')
   },
 ]
-
-export default RecipeScreen
