@@ -6,6 +6,6 @@
     "esModuleInterop": true,
     "jsx": "react",
     "allowJs": true,
-    "lib": [ "es2015" ]
+    "lib": [ "es2015", "es2016", "dom", "es2018.promise" ]
   }
 }

@@ -14,6 +14,7 @@ import useColorScheme from '../hooks/useColorScheme';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import RecipeScreen from '../screens/RecipeScreen';
+import CategoryRecipeScreen from '../screens/CategoryRecipeScreen'
 // import LoginScreen from '../screens/LoginScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList, RecipesParamList, AuthParamList, DrawerRouteConfig } from '../types';
 
@@ -116,11 +117,15 @@ const RecipesStack = createStackNavigator<RecipesParamList>();
 
 function RecipesNavigator() {
   return (
-    <RecipesStack.Navigator>
+    <RecipesStack.Navigator initialRouteName="CategoryScreen">
       <RecipesStack.Screen
-        name="RecipeScreen"
+        name="CategoryScreen"
         component={RecipeScreen}
         options={{ headerTitle: 'Recipes' }}
+      />
+      <RecipesStack.Screen 
+        name="RecipesScreen"
+        component={CategoryRecipeScreen}
       />
     </RecipesStack.Navigator>
   );

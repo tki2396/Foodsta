@@ -1,15 +1,40 @@
-import * as React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import * as React from 'react'
+import { useState, useEffect } from 'react';
+import { StyleSheet, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import Feed from '../components/feed';
 
 export default function HomeScreen() {
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch('https://tq1j7avrgh.execute-api.us-east-2.amazonaws.com/default/GetRecipesFromDB')
+      .then((response) => response.json())
+      .then((json) => setData(json))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Feed itemList={getData()}/>
+      {isLoading ? <ActivityIndicator/> : (
+        <Feed itemList={data}/>  
+      )}
     </View>
+    // <View style={{ flex: 1, padding: 24 }}>
+    //   {isLoading ? <ActivityIndicator/> : (
+    //     <FlatList
+    //       data={data}
+    //       keyExtractor={({ id }, index) => id}
+    //       renderItem={({ item }) => (
+    //         <Text>{item.cuisine}, {item.title}</Text>
+    //       )}
+    //     />
+    //   )}
+    // </View>
   );
 }
 

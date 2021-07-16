@@ -1,15 +1,14 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image, FlatList } from 'react-native';
+import CategoryRecipeScreen from '../screens/CategoryRecipeScreen'
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParamList } from '../types';
 
 type Props = {
     title: string,
-    image: string,
-    rating: number,
-    description: string,
+    image: any,
+    //description: string,
 };
-interface Props1 {
-
-}
 
 const styles = StyleSheet.create({
     card:{
@@ -24,43 +23,48 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 2,
         marginHorizontal: 4,
-        marginVertical: 6,
+        marginVertical: 8,
         height: 300,
-        flexDirection: 'row',
+        flexGrow: 1,
+        flexDirection: 'column',
         width: 175,
         justifyContent: 'center',
         paddingVertical: 5,
         paddingLeft: 10,
-        // marginBottom: 10,
+        marginBottom: 10,
 
     },
     cardData:{
-        //flex: 1,
-        //marginHorizontal: 5,
-        //alignContent: 'center',
+        flex: 1,
         justifyContent: 'center',
     },
     photo: {
-        height: 80,
-        width: 80,
-        borderRadius: 80/2,
-        //marginLeft: 150,
-        //marginTop: 45,
-        alignSelf: 'center',
+        height: 100,
+        width: 100,
+        borderRadius: 100,
+        marginTop: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
+    photoContainer: {
+        flex: 1,
+        alignItems: 'center'
+    }
 })
 
-export const RecipeItem = (props: Props) => {
+export const RecipeItem = (props: Props, navigation: StackScreenProps<RootStackParamList, 'Login'>) => {
     return(
-        <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}}>
+        // <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}} onPress={navigation.replace('Root')}>
             <View style={styles.card}>
+                <View style={styles.photoContainer}>
+                    <Image source={props.image} style={styles.photo}/>
+                </View>
                 <View style={styles.cardData}>
-                    <Image source={require("../assets/images/food.jpg")} style={styles.photo}/>
-                    <Text style={{fontWeight: 'bold', fontSize: 25, textAlign: 'center'}}>{ props.title }</Text>
-                    <Text style={{fontWeight: 'normal', fontStyle:'italic', fontSize: 12, textAlign: 'center'}}>{ props.description }</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: 20, textAlign: 'center', marginTop: 15}}>{ props.title }</Text>
+                    {/* <Text style={{fontWeight: 'normal', fontStyle:'italic', fontSize: 12, textAlign: 'center'}}>{ props.description }</Text> */}
                 </View>
             </View>
-        </TouchableOpacity>
+        // </TouchableOpacity>
     )
 }
 

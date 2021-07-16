@@ -19,11 +19,13 @@ const styles = StyleSheet.create({
 const Feed = ({ itemList }: any) => (
     <View style={styles.container}>
         <FlatList
+                initialNumToRender={1}
                 data={itemList}
+                keyExtractor={item => item.recipeId}
                 renderItem={({ item }) => <FeedItem
                     title={item.title}
-                    description={item.description}
-                    image_url={item.image_url}
+                    description={item.summary}
+                    image_url={item.image}
                 />}
             />
 

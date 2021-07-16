@@ -4,9 +4,9 @@
  */
 
 export type RootStackParamList = {
+  Login: undefined;
   Root: undefined;
   NotFound: undefined;
-  Drawer: undefined;
 };
 
 export type BottomTabParamList = {
@@ -25,7 +25,8 @@ export type TabTwoParamList = {
 };
 
 export type RecipesParamList = {
-  FeedScreen: undefined;
+  CategoryScreen: undefined;
+  RecipeScreen: undefined;
 };
 
 export type AuthParamList = {

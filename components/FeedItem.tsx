@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity} from 'react-
 type Props = {
     title: string,
     description: string,
-    image_url: NodeRequire
+    image_url: string
 };
 
 const styles = StyleSheet.create({
@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 16,
         color: '#000',
+        fontWeight: 'bold',
+        marginTop: 30,
+        textAlign: 'center'
     },
     container_text: {
         flex: 1,
@@ -62,7 +65,7 @@ const FeedItem = (props: Props) => {
         <TouchableOpacity style={styles.container}>
             <View style={{flex: 1, flexDirection: 'column', marginBottom: 10}}>
         
-                <Image source={props.image_url} style={styles.photo} />
+                <Image style={styles.photo} source={{uri: props.image_url}}/>
                 <View style={styles.container_text}>
                     <Text style={styles.title}>
                         {props.title}
