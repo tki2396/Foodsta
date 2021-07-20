@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, ActivityIndicator, FlatList, Alert} from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { Text } from '../components/Themed';
 import Feed from '../components/feed';
+import { stringify } from 'querystring';
+import Post from '../components/Post';
 
 export default function HomeScreen() {
   const [isLoading, setLoading] = useState(true);
@@ -18,30 +20,51 @@ export default function HomeScreen() {
       .finally(() => setLoading(false));
   }, []);
 
+
   return (
-    <View style={styles.container}>
-      {isLoading ? <ActivityIndicator/> : (
-        <Feed itemList={data}/>  
-      )}
-    </View>
-    // <View style={{ flex: 1, padding: 24 }}>
+    // <View style={styles.container}>
     //   {isLoading ? <ActivityIndicator/> : (
-    //     <FlatList
-    //       data={data}
-    //       renderItem={({ item }) => (
-    //         <Text>{item}</Text>
-    //       )}
-    //     />
+    //     <Feed itemList={data}/>  
     //   )}
     // </View>
+    <View style={{ flex: 1, padding: 15}}>
+      {isLoading ? <ActivityIndicator/> : (
+        <FlatList
+          initialNumToRender={10}
+          data={data}
+          keyExtractor={(item) => item.recipeId}
+          renderItem={({ item }) => (
+            <Post id={1}
+              userName={"TOBI"}
+              avatarSrc={""}
+              caption={item.recipeId}
+              liked={true}
+              image={item.image}
+              title={item.title}/>
+          )}
+        />
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    //alignItems: 'center',
+    //justifyContent: 'center',
+    backgroundColor: 'white'
+  },
+  container1: {
+    backgroundColor: 'red'
+    //flex: 1,
+    //flexDirection: 'row',
+    //padding: 10,
+    // marginLeft:16,
+    // marginRight:16,
+    // marginTop: 8,
+    // marginBottom: 8,
+    // borderRadius: 5,
   },
   title: {
     fontSize: 20,

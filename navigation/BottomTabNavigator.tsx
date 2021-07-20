@@ -32,21 +32,21 @@ export default function BottomTabNavigator() {
         name="Home"
         component={HomeNavigator}
         options={{
-          tabBarIcon: ({ color }: any) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }: any) => <TabBarIcon name="home-outline" color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Recipes"
         component={RecipesNavigator}
         options={{
-          tabBarIcon: ({ color }: any) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }: any) => <TabBarIcon name="fast-food-outline" color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Profile"
         component={ProfileNavigator}
         options={{
-          tabBarIcon: ({ color }: any) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }: any) => <TabBarIcon name="md-person-outline" color={color} />,
         }}
       />
       {/* <BottomTab.Screen

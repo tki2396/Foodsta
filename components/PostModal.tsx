@@ -20,21 +20,26 @@ const PostModal = () => {
         >
           <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                <Text style={styles.modalText}>Make Post!</Text>
-                <Pressable
+                <View>
+                    <MyImagePicker />
+                  </View>
+                {/* <Pressable
                   style={[styles.closeButton]}
                   onPress={() => setModalVisible(!modalVisible)}
                 >
                   <AntDesign name='close' size={32}/>
-                </Pressable>
+                </Pressable> */}
                 <View style={styles.buttonContainer}>
                   <View style={styles.postButton}>
-                    <MyImagePicker />
+                  <Button
+                      title="Post"
+                      onPress={() => setModalVisible(!modalVisible)}
+                  />
                   </View>
                   <View style={styles.postButton}>
                     <Button
                       title="Cancel"
-                      onPress={() => Alert.alert('Post Canceled!')}
+                      onPress={() => setModalVisible(!modalVisible)}
                     />
                   </View>
                 </View>
@@ -57,7 +62,8 @@ const PostModal = () => {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      marginTop: 22
+      marginTop: 22,
+      //backgroundColor: 'red'
     },
     postButton:{
       borderWidth:1,
@@ -69,17 +75,23 @@ const PostModal = () => {
       flexDirection: 'row',
       justifyContent: 'flex-end',
     },
+    choosePicture: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      backgroundColor:'blue'
+    },
     modalView: {
       margin: 20,
       backgroundColor: "#fff",
       borderRadius: 20,
-      padding: 35,
+      padding: 70,
       alignItems: "center",
       shadowColor: "#000",
       shadowOffset: {
         width: 0,
         height: 2
       },
+      height: '80%',
       shadowOpacity: 0.25,
       shadowRadius: 4,
       elevation: 5,

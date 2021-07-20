@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 //keyExtracetor={(item) => item.id}
 //numColumns - add marginHorizontal/marginTop
 const Feed = ({ itemList }: any) => (
-    <View style={styles.container}>
+    // <View style={styles.container}>
         <FlatList
                 initialNumToRender={1}
                 data={itemList}
@@ -29,7 +29,7 @@ const Feed = ({ itemList }: any) => (
                 />}
             />
 
-    </View>
+    // </View>
 );
 
 export default Feed
