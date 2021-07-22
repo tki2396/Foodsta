@@ -14,6 +14,7 @@ import useColorScheme from '../hooks/useColorScheme';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import RecipeScreen from '../screens/RecipeScreen';
+import CategoryRecipeScreen from '../screens/CategoryRecipeScreen'
 // import LoginScreen from '../screens/LoginScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList, RecipesParamList, AuthParamList, DrawerRouteConfig } from '../types';
 
@@ -31,21 +32,21 @@ export default function BottomTabNavigator() {
         name="Home"
         component={HomeNavigator}
         options={{
-          tabBarIcon: ({ color }: any) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }: any) => <TabBarIcon name="home-outline" color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Recipes"
         component={RecipesNavigator}
         options={{
-          tabBarIcon: ({ color }: any) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }: any) => <TabBarIcon name="fast-food-outline" color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Profile"
         component={ProfileNavigator}
         options={{
-          tabBarIcon: ({ color }: any) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }: any) => <TabBarIcon name="md-person-outline" color={color} />,
         }}
       />
       {/* <BottomTab.Screen
@@ -97,30 +98,19 @@ function ProfileNavigator() {
   );
 }
 
-// const LoginStack = createStackNavigator<LoginParamList>();
-
-// function LoginNavigator() {
-//   return (
-//     <LoginStack.Navigator>
-//       <LoginStack.Screen
-//         name="LoginScreen"
-//         component={LoginScreen}
-//         options={{ headerTitle: 'LOGIN' }}
-//       />
-//     </LoginStack.Navigator>
-//   );
-// }
-
-
 const RecipesStack = createStackNavigator<RecipesParamList>();
 
 function RecipesNavigator() {
   return (
-    <RecipesStack.Navigator>
+    <RecipesStack.Navigator initialRouteName="RecipeScreen">
       <RecipesStack.Screen
         name="RecipeScreen"
         component={RecipeScreen}
         options={{ headerTitle: 'Recipes' }}
+      />
+      <RecipesStack.Screen 
+        name="CategoryRecipesScreen"
+        component={CategoryRecipeScreen}
       />
     </RecipesStack.Navigator>
   );

@@ -1,42 +1,49 @@
 import * as React from 'react';
-import { StyleSheet, Button} from 'react-native';
-
+import { useState, useEffect } from 'react';
+import { StyleSheet, Button, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { StackScreenProps } from '@react-navigation/stack';
 import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { Text } from '../components/Themed';
 import { getCustomTabsSupportingBrowsersAsync } from 'expo-web-browser';
 import DrawerNavigator from '../navigation/DrawerNavigator'
 import {useNavigation} from '@react-navigation/native';
-import { DrawerRouteConfig, DrawerParamList } from '../types';
+import { DrawerRouteConfig, DrawerParamList, RootStackParamList } from '../types';
 import Sandbox from '../components/Sandbox'
 import { RecipeItem } from '../components/RecipeItem';
 import layout from '../constants/Layout'
+import { FlatList } from 'react-native-gesture-handler';
+import { cuisines } from '../constants/Constants'
+import { RecipesParamList } from '../types';
+import PostModal from '../components/PostModal'
 
-export default function RecipeScreen({props}: any) {
+export default function RecipeScreen({
+  navigation
+}: StackScreenProps<RecipesParamList, 'RecipeScreen'>) {
+
+
   return (
     <View style={styles.container}>
-      <View style={styles.contentContainer}>
-        <RecipeItem title="Butter Chicken" image="image" rating={5} description="indian"/>
-        <RecipeItem title="Butter Chicken" image="image" rating={5} description="indian"/>
-      </View>
-      <View style={styles.contentContainer}>
-        <RecipeItem title="Butter Chicken" image="image" rating={5} description="indian food is the best food of all time I love butter chicken"/>
-        <RecipeItem title="Butter Chicken" image="image" rating={5} description="indian"/>
-        </View>
-    </View>
-    
-  );
+      {/* <View style={styles.contentContainer}> */}
+        <FlatList
+          numColumns={2}
+          data={DATA}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) =>
+          <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}} onPress={() => navigation.navigate('CategoryRecipesScreen', {cuisine: item.title})}>
 
-  // const navigation = useNavigation<DrawerRouteConfig>();
-  //   return(
-  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-  //       <Text>Recipes Screen</Text>
-  //       <DrawerNavigator />
-  //     </View>
-  //   )
-  // return(
-  //     <Sandbox />
-  // )
-    
+            <RecipeItem
+              title={item.title}
+              image={item.image}/>
+          </TouchableOpacity>
+          }
+        />
+        <View style={styles.floatingButton}>
+          <PostModal />
+        </View>
+      {/* </View> */}
+      
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -58,4 +65,60 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
+  floatingButton: {
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    height: 70,
+    backgroundColor: '#fff',
+    borderRadius: 100, 
+  }
 });
+
+const DATA = [
+  {
+    id: 1,
+    title: cuisines.AMERICAN,
+    image: require('../assets/images/food/american_food.jpeg')
+  },
+  {
+    id: 2,
+    title: cuisines.CHINESE,
+    image: require('../assets/images/food/chinese_food.jpeg')
+  },
+  {
+    id: 3,
+    title: cuisines.INDIAN,
+    image: require('../assets/images/food/indian_food.jpeg')
+  },
+  {
+    id: 4,
+    title: cuisines.ITALIAN,
+    image: require('../assets/images/food/italian_food.jpeg')
+  },
+  {
+    id: 5,
+    title: cuisines.KOREAN,
+    image: require('../assets/images/food/korean_food.jpeg')
+  },
+  {
+    id: 6,
+    title: cuisines.MEDITERRANEAN,
+    image: require('../assets/images/food/med_food.jpeg')
+  },
+  {
+    id: 7,
+    title: cuisines.MEXICAN,
+    image: require('../assets/images/food/mexican_food.jpeg')
+  },
+  {
+    id: 8,
+    title: cuisines.THAI,
+    image: require('../assets/images/food/thai_food.jpeg')
+  },
+]

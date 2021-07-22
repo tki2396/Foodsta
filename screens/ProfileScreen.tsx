@@ -1,31 +1,29 @@
 import * as React from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { Text } from '../components/Themed';
 import ProfileItem from '../components/ProfileItem';
 import Card from '../components/Card';
 import { Ionicons } from '@expo/vector-icons'
+import PostModal from '../components/PostModal'
 
 export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <Image source={require("../assets/images/food.jpg")} style={styles.photo}/>
-          <ProfileItem title="Posts" description="My Posts" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
-          <ProfileItem title="Settings" description="Go to Settings" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
-          <ProfileItem title="Log Out" description="Log Out" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
+      <ProfileItem title="Posts" description="My Posts" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
+      <ProfileItem title="Settings" description="Go to Settings" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
+      <ProfileItem title="Log Out" description="Log Out" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
+      <View style={styles.floatingButton}>
+        <PostModal />
       </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    //backgroundColor: 'blue'
-  },
-  container1: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -76,28 +74,17 @@ const styles = StyleSheet.create({
     height: 1,
     flexDirection: 'row'
   },
-});
-
-const styles1 = StyleSheet.create({
-  revoked: {
-    textDecorationLine: "line-through",
-    textDecorationStyle: "solid",
-    color: "red"
-  },
-  container: {
-    flex: 1,
-    paddingTop: 10
-  },
-  addButtonContainer: {
+  floatingButton: {
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
     position: 'absolute',
-    right: 10,
     bottom: 10,
-
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#006ee6',
-    alignItems: "center",
-    justifyContent: "center"
+    right: 10,
+    height: 70,
+    backgroundColor: '#fff',
+    borderRadius: 100, 
   }
 });
