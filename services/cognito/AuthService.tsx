@@ -14,8 +14,7 @@ import {
     CognitoUserAttribute,
   } from 'amazon-cognito-identity-js'
   
-import { promisify } from 'util'
-
+import { RegistrationParams } from '../../screens/RegistrationScreen'
 export interface Props {
 }
   
@@ -25,38 +24,29 @@ interface State {
 }
 
 
-async function signUp(userPool: any, userName: any, password: any) {
-    const nameAttribute = new CognitoUserAttribute({
-      Name: 'name',
-      Value: userName,
+async function executeSignup(params: RegistrationParams){
+
+    fetch('https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/create', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: params.username,
+        password: params.password,
+        firstname: params.firstname,
+        lastname: params.lastname,
+        email: params.email
+      })
     })
-    const emaulAttribute = new CognitoUserAttribute({
-        Name: 'email',
-        Value: 'ijosetobi@gmail.com'
-    })
-  
-    let attributes = [nameAttribute, emaulAttribute]
-  
-    const promisifiedSignUp = promisify(userPool.signUp).bind(userPool)
-  
-    return promisifiedSignUp(userName, password, attributes, null)
+    .then((response) => response.json())
+    .catch((error) => console.error(error))
+    .finally(() => console.log("COMPLETE "));
 }
 
-async function executeSignup(userName: any, password: any){
+async function executeSignIn(username: any, password: any){
 
-    console.warn("message " + userName + ' ' + password)
-    const userPool = new CognitoUserPool({
-        UserPoolId: 'us-east-2_1KSzAIFxZ',
-        ClientId: '3mqjrnttm06h9cfqjgbmbdnh5k',
-    })
-    try {
-        const res = await signUp(userPool, userName, password)
-        Alert.alert("SUCCESS");
-        console.log('Signup success. Result: ', res)
-      } catch (e) {
-        Alert.alert("FAILED");
-        console.error(e.message)
-      }
 }
 
 

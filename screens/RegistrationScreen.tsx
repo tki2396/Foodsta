@@ -6,7 +6,16 @@ import { Text, View } from '../components/Themed';
 
 import { RootStackParamList } from '../types';
 
-export default function RegistrationScreen({
+type RegistrationParams = {
+    username: string,
+    password: string,
+    firstname: string,
+    lastname: string,
+    email: string
+}
+  
+
+function RegistrationScreen({
     navigation,
   }: StackScreenProps<RootStackParamList, 'Login'>) {
 
@@ -17,6 +26,16 @@ export default function RegistrationScreen({
     const [userName, setUserName] = React.useState('');
     const [password, setPassword] = React.useState('');
 
+    const setRegistrationParams = (): RegistrationParams => {
+        let registrationParams: RegistrationParams = {
+            username: userName,
+            password: password,
+            email: email,
+            firstname: firstName,
+            lastname: lastName
+        }
+        return registrationParams;
+    }
 
     return (
         <View style={styles.container}>
@@ -38,7 +57,6 @@ export default function RegistrationScreen({
                     style={styles.TextInput}
                     placeholder="Last name"
                     placeholderTextColor="#003f5c"
-                    secureTextEntry={true}
                     onChangeText={(lastName) => setlastName(lastName)}
                 />
             </View>
@@ -47,8 +65,7 @@ export default function RegistrationScreen({
                     style={styles.TextInput}
                     placeholder="Email"
                     placeholderTextColor="#003f5c"
-                    secureTextEntry={true}
-                    onChangeText={(email) => setlastName(email)}
+                    onChangeText={(email) => setEmail(email)}
                 />
             </View>
             <View style={[styles.inputView]}>
@@ -56,8 +73,7 @@ export default function RegistrationScreen({
                     style={styles.TextInput}
                     placeholder="userName"
                     placeholderTextColor="#003f5c"
-                    secureTextEntry={true}
-                    onChangeText={(userName) => setlastName(userName)}
+                    onChangeText={(userName) => setUserName(userName)}
                 />
             </View>
             <View style={[styles.inputView]}>
@@ -66,12 +82,13 @@ export default function RegistrationScreen({
                     placeholder="Password"
                     placeholderTextColor="#003f5c"
                     secureTextEntry={true}
-                    onChangeText={(password) => setlastName(password)}
+                    onChangeText={(password) => setPassword(password)}
                 />
             </View>
             <TouchableOpacity style={styles.loginButton}
                 onPress={() => {
-                    executeSignup(userName, password);
+                    let params = setRegistrationParams();
+                    executeSignup(params);
                     navigation.replace('Root')
                 }}>
                 <Text>SUBMIT</Text>
@@ -146,4 +163,6 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     }
   });
+
+  export { RegistrationParams, RegistrationScreen}
   
