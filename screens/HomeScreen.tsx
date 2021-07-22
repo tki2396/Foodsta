@@ -7,13 +7,14 @@ import { Text } from '../components/Themed';
 import Feed from '../components/feed';
 import { stringify } from 'querystring';
 import Post from '../components/Post';
+import PostModal from '../components/PostModal'
 
 export default function HomeScreen() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("https://j59unal3k2.execute-api.us-east-2.amazonaws.com/default/GetRecipesFromDB")
+    fetch("https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/recipes/getAll")
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
@@ -27,7 +28,7 @@ export default function HomeScreen() {
     //     <Feed itemList={data}/>  
     //   )}
     // </View>
-    <View style={{ flex: 1, padding: 15}}>
+    <View style={{ flex: 1, padding: 15, flexDirection: 'column'}}>
       {isLoading ? <ActivityIndicator/> : (
         <FlatList
           initialNumToRender={10}
@@ -43,7 +44,11 @@ export default function HomeScreen() {
               title={item.title}/>
           )}
         />
+        
       )}
+      <View style={styles.floatingButton}>
+        <PostModal username={'tobiijose'}/>
+      </View>
     </View>
   );
 }
@@ -75,8 +80,8 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
-  button: {
-    borderWidth: 1,
+  floatingButton: {
+      borderWidth: 1,
       borderColor: 'rgba(0,0,0,0.2)',
       alignItems: 'center',
       justifyContent: 'center',

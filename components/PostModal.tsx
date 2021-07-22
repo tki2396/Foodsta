@@ -1,12 +1,75 @@
-import React, { useState } from "react";
-import { Alert, Button, Modal, StyleSheet, Text, Image, Pressable, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Alert, Button, Modal, StyleSheet, Text, Image, Pressable, View, TextInput, Platform} from "react-native";
 import { AntDesign } from '@expo/vector-icons'
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-//import CameraRoll from '@react-native-community/cameraroll';
-import MyImagePicker from '../components/MyImagePicker'
+import * as ImagePicker from 'expo-image-picker';
 
-const PostModal = () => {
+type Props = {
+  username: string
+}
+
+const PostModal = (props: Props) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [title, setTitle] = useState('');
+    const [caption, setCaption] = useState('');
+    const [imageUri, setImage] = useState<string | null>();
+    const [imageBase64, setImageBase64] = useState<string | undefined>()
+
+    useEffect(() => {
+      (async () => {
+        if (Platform.OS !== 'web') {
+          const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (status !== 'granted') {
+            Alert.alert('Sorry, we need camera roll permissions to make this work!');
+          }
+        }
+      })();
+    }, []);
+
+    const createPost = () => {
+      fetch('https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/posts/create', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: props.username,
+          caption: caption,
+          imageBase64: imageBase64,
+          title: title,
+          contentType: imageUri ? imageUri.substring(imageUri.indexOf('.'), imageUri.length) : 'image/jpeg'
+        })
+      })
+      .then((response) => response.json())
+      .catch((error) => console.error(error))
+      .finally(() => console.log("COMPLETE "));
+    }
+
+    const pickImage = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 0.5,
+        base64: true,
+      });
+    
+      if (!result.cancelled) {
+        setImage(result.uri);
+        setImageBase64(result.base64);
+      }
+    };
+
+    const onSubmit = async () => {
+      try {  
+        setTitle(title);
+        createPost();
+      } catch (e) {
+        console.error(e)
+      }
+    }
+
     return (
       <View>
         <Modal
@@ -20,29 +83,44 @@ const PostModal = () => {
         >
           <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                <View>
-                    <MyImagePicker />
-                  </View>
-                {/* <Pressable
-                  style={[styles.closeButton]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <AntDesign name='close' size={32}/>
-                </Pressable> */}
+                <View style={{flex: 1}}>
+                  <Button title="Start with a picture!" onPress={pickImage} />
+                  {imageUri && <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />}
+                </View>
+              <View style={{flex: 1, flexDirection: 'column', width: 200, justifyContent: 'center'}}> 
+                  <TextInput
+                    style={styles.titleInput}
+                    onChangeText={setTitle}
+                    value={title}
+                    placeholder="Title"
+                  />
+                  <TextInput
+                    style={styles.captionInput}
+                    onChangeText={setCaption}
+                    value={caption}
+                    placeholder="Caption"
+                  />
+                </View>
                 <View style={styles.buttonContainer}>
                   <View style={styles.postButton}>
-                  <Button
+                    <Button
                       title="Post"
-                      onPress={() => setModalVisible(!modalVisible)}
-                  />
+                      onPress={() => {
+                        onSubmit();
+                        setModalVisible(!modalVisible)
+                      }}
+                    />
                   </View>
                   <View style={styles.postButton}>
                     <Button
                       title="Cancel"
-                      onPress={() => setModalVisible(!modalVisible)}
+                      onPress={() => {
+                        setModalVisible(!modalVisible)
+                        setImage(null)
+                      }}
                     />
                   </View>
-                </View>
+                </View>         
               </View>
             </View>
         </Modal>
@@ -63,7 +141,6 @@ const PostModal = () => {
       justifyContent: "center",
       alignItems: "center",
       marginTop: 22,
-      //backgroundColor: 'red'
     },
     postButton:{
       borderWidth:1,
@@ -72,17 +149,13 @@ const PostModal = () => {
        borderRadius:10,
     },
     buttonContainer: {
+      marginTop: 15,
       flexDirection: 'row',
       justifyContent: 'flex-end',
     },
-    choosePicture: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      backgroundColor:'blue'
-    },
     modalView: {
       margin: 20,
-      backgroundColor: "#fff",
+      backgroundColor: '#fff',
       borderRadius: 20,
       padding: 70,
       alignItems: "center",
@@ -95,6 +168,7 @@ const PostModal = () => {
       shadowOpacity: 0.25,
       shadowRadius: 4,
       elevation: 5,
+      flexDirection: 'column'
     },
     button: {
       borderWidth: 1,
@@ -102,39 +176,23 @@ const PostModal = () => {
         alignItems: 'center',
         justifyContent: 'center',
         width: 70,
-        position: 'absolute',
-        bottom: 85,
-        right: 10,
         height: 70,
         backgroundColor: 'orange',
         borderRadius: 100,
     },
-    closeButton: {
-      borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0.2)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 70,
-        position: 'absolute',
-        bottom: 155,
-        right: 10,
-        height: 70,
-        backgroundColor: 'orange',
-        borderRadius: 100,
+    titleInput: {
+      borderRadius: 15,
+      borderColor: 'black',
+      borderWidth: 2,
+      height: 50,
+      marginBottom: 20,
     },
-    textStyle: {
-      color: "white",
-      fontWeight: "bold",
-      textAlign: "center",
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    modalText: {
-      marginBottom: 15,
-      textAlign: "center",
-      height: 100,
-      width: 200
-    }
+    captionInput: {
+       borderRadius: 15,
+       borderColor: 'black',
+       borderWidth: 2,
+       height: 50
+     },
   });
   
   export default PostModal;

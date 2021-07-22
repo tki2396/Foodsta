@@ -60,56 +60,8 @@ async function executeSignup(userName: any, password: any){
 }
 
 
-class LoginScreen extends React.Component<Props, State> {
 
-    constructor(props: Props){
-        super(props);
-        this.state = {
-            userName: '',
-            password: '',
-        };
-    }
-    
-    // const [userName, setUserName] = useState(('');
-    // const [password, setPassword] = useState('');
-    
-    render(){
-        return (
-            <View style={styles.container}>
-                <Image source = {require('../../assets/images/food.jpg')} style={[styles.image]}/>
-                <View style={[styles.inputView]}>
-                    <TextInput
-                        style={styles.TextInput}
-                        placeholder="Username"
-                        placeholderTextColor="#003f5c"
-                        onChangeText={(userName) => {
-                            this.setState({'userName': userName})
-                            console.warn(this.state.userName)
-                        } }
-                    />
-                </View>
-        
-                <View style={[styles.inputView]}>
-                    <TextInput
-                        style={styles.TextInput}
-                        placeholder="Password."
-                        placeholderTextColor="#003f5c"
-                        secureTextEntry={true}
-                        // onChangeText={(password) => setPassword(password)}
-                        onChangeText={(password) => this.setState({'password': password})}
-                    />
-                </View>
-                <TouchableOpacity>
-                    <Text style={styles.forgotPasswordButton}>Forgot Password?</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.loginButton} onPress={(() => executeSignup(this.state.userName, this.state.password).then(() => {console.log("HELLO")}))}>
-                    <Text>LOGIN</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    }
-}
-export { LoginScreen, executeSignup } ;
+export { executeSignup } ;
 const styles = StyleSheet.create({
     container: {
         flex: 1,

@@ -1,7 +1,7 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native';
-import { executeSignup } from '../services/cognito/SignUpService'
+import { executeSignup } from '../services/cognito/AuthService'
 import { Text, View } from '../components/Themed';
 
 import { RootStackParamList } from '../types';

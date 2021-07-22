@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Alert, Button, Image, View, Platform, TextInput, StyleSheet} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-export default function MyImagePicker() {
+const MyImagePicker = () => {
   const [image, setImage] = useState(null);
   const [title, setTitle] = React.useState('');
   const [caption, setCaption] = React.useState('');
@@ -32,26 +32,11 @@ export default function MyImagePicker() {
       setImage(result.uri);
     }
   };
-
   return (
-    <View style={{ flex: 1, marginTop: 60 }}>
-      <View style={styles.imagePicker}>
-        <Button title="Start with a picture!" onPress={pickImage} />
-      </View>
-      <View style={styles.textInput}>
-        <TextInput
-          // style={styles.input}
-          onChangeText={setTitle}
-          value={title}
-          placeholder="Title"
-        />
-        <TextInput
-          // style={styles.input}
-          onChangeText={setCaption}
-          value={caption}
-          placeholder="Caption"
-        />
-      </View>
+    <View style={{ flex: 1}}>
+      {/* <View style={styles.imagePicker}> */}
+        <Button title="Start with a picture!" onPress={() => pickImage()} />
+      {/* </View> */}
       {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
     </View>
   );
@@ -70,7 +55,8 @@ const styles = StyleSheet.create({
   },
   imagePicker: {
     alignItems: 'center',
-    padding: 10,
-    margin: 10
+    backgroundColor:'blue'
   }
 })
+
+export default MyImagePicker;

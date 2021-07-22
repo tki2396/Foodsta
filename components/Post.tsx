@@ -5,7 +5,6 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Ionicons } from '@expo/vector-icons'
 
 type Props = {
-    id: number,
     userName: string,
     avatarSrc: string,
     caption: string,
@@ -32,7 +31,7 @@ const Post = (props: Props) => {
                         <Text>{props.userName}</Text>
                     </View>
                 </TouchableOpacity>
-                <Image style={styles.image} source={require('../assets/images/butter_chicken.jpeg')}/>
+                <Image style={styles.image} source={{uri: image}}/>
                 <View style={styles.container_text}>
                     <Ionicons style={styles.likeIcon} name="heart-outline" size={32} color="black" />
                     <Text style={styles.title}>

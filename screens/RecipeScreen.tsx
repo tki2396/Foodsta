@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { StyleSheet, Button, TouchableHighlight, TouchableOpacity} from 'react-native';
+import { StyleSheet, Button, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { Text } from '../components/Themed';
 import { getCustomTabsSupportingBrowsersAsync } from 'expo-web-browser';
 import DrawerNavigator from '../navigation/DrawerNavigator'
 import {useNavigation} from '@react-navigation/native';
@@ -14,17 +14,16 @@ import layout from '../constants/Layout'
 import { FlatList } from 'react-native-gesture-handler';
 import { cuisines } from '../constants/Constants'
 import { RecipesParamList } from '../types';
+import PostModal from '../components/PostModal'
 
 export default function RecipeScreen({
   navigation
 }: StackScreenProps<RecipesParamList, 'RecipeScreen'>) {
 
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
 
   return (
     <View style={styles.container}>
-      <View style={styles.contentContainer}>
+      {/* <View style={styles.contentContainer}> */}
         <FlatList
           numColumns={2}
           data={DATA}
@@ -38,7 +37,11 @@ export default function RecipeScreen({
           </TouchableOpacity>
           }
         />
-      </View>
+        <View style={styles.floatingButton}>
+          <PostModal />
+        </View>
+      {/* </View> */}
+      
     </View>
   );
 }
@@ -62,6 +65,19 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
+  floatingButton: {
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    height: 70,
+    backgroundColor: '#fff',
+    borderRadius: 100, 
+  }
 });
 
 const DATA = [

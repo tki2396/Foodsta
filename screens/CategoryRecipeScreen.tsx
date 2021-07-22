@@ -18,14 +18,7 @@ export default function CategoryRecipeScreen({
 
   useEffect(() => {
     
-    fetch('https://j59unal3k2.execute-api.us-east-2.amazonaws.com/default/getRecipesByCuisine', {
-      method: 'POST',
-      headers: {
-      },
-      body: JSON.stringify({
-        "cuisine": cuisine
-      })
-    })
+    fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/recipes/cuisine/${cuisine}`)
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
