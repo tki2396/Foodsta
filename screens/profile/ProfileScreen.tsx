@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text } from '../components/Themed';
-import ProfileItem from '../components/ProfileItem';
-import Card from '../components/Card';
+import { Text } from '../../components/Themed';
+import ProfileItem from '../../components/ProfileItem';
 import { Ionicons } from '@expo/vector-icons'
-import PostModal from '../components/PostModal'
+import PostModal from '../../components/PostModal'
 
 export default function ProfileScreen() {
   return (
@@ -16,7 +14,7 @@ export default function ProfileScreen() {
       <ProfileItem title="Settings" description="Go to Settings" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
       <ProfileItem title="Log Out" description="Log Out" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
       <View style={styles.floatingButton}>
-        <PostModal />
+        <PostModal username='tobiijose'/>
       </View>
     </View>
   );

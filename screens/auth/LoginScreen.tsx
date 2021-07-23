@@ -1,27 +1,26 @@
-import { StackScreenProps } from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native';
-import { executeSignup } from '../services/cognito/AuthService'
-import { Text, View } from '../components/Themed';
-
-import { AuthParamList } from '../types';
+import { executeSignIn } from '../../services/cognito/AuthService'
+import { Text, View } from '../../components/Themed';
+import { AuthParams } from '../../services/cognito/AuthService'
+import { AuthParamList } from '../../types';
 
 export default function LginScreen({
     navigation,
-  }: StackScreenProps<AuthParamList, 'Login'>) {
+  }: StackNavigationProp<AuthParamList, 'LoginScreen'>) {
 
     const [userName, setUserName] = React.useState('');
     const [password, setPassword] = React.useState('');
 
-    // return (
-    //   <View style={styles.container}>
-    //     <Text style={styles.title}>This screen doesn't exist.</Text>
-    //     <TouchableOpacity onPress={() => navigation.replace('Root')} style={styles.link}>
-    //       <Text style={styles.linkText}>Go to home screen!</Text>
-    //     </TouchableOpacity>
-    //     <LoginComponent />
-    //   </View>
-    // );
+    const setAuthParams = (): AuthParams => {
+        let authParams: AuthParams = {
+            username: userName,
+            password: password,
+        }
+        return authParams;
+    }
+
     return (
         <View style={styles.container}>
             <Image source = {require('../assets/images/food.jpg')} style={[styles.image]}/>
@@ -54,7 +53,8 @@ export default function LginScreen({
             </TouchableOpacity>            
             <TouchableOpacity style={styles.loginButton}
                 onPress={() => {
-                    //executeSignup(userName, password);
+                    let params = setAuthParams();
+                    executeSignIn(params);
                     navigation.replace('Root')
                 }}>
                 <Text>LOGIN</Text>

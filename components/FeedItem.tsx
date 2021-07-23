@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
+import { StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
+import { Text, View } from '../components/Themed';
+
 
 type Props = {
     title: string,
@@ -22,8 +24,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 2,
         marginHorizontal: 4,
-        height: 350,
-        width: "98%",
+        //height: 350,
+        //width: "98%",
         justifyContent: 'center',
         marginBottom: 25,
         paddingBottom: 50,

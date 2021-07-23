@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
+import { StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
 import { Avatar } from 'react-native-elements'
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Ionicons } from '@expo/vector-icons'
+import { Text, View } from '../components/Themed';
 
 type Props = {
     userName: string,
@@ -21,41 +22,53 @@ const Post = (props: Props) => {
     const [liked, setLiked] = useState(false);
     const [image, setImage] = useState('');
 
+    
+    const updateLiked = (liked: Boolean) => {
+        return liked ? <Ionicons style={styles.likeIcon} name="heart" size={32} color="red" /> : <Ionicons style={styles.likeIcon} name="heart-outline" size={32} color="black" />
+    }
+
 
     return(
-        // <TouchableOpacity style={styles.container}>
-            <View style={styles.flexStyle}>
-                <TouchableOpacity onPress={() => console.log("")}>
-                    <View style={styles.postHeader}>
-                        <Avatar rounded title='TI' avatarStyle={styles.cardAvatar} titleStyle={styles.title} size='medium'/>
-                        <Text>{props.userName}</Text>
-                    </View>
+        <View style={styles.cardContainer}>
+            <TouchableOpacity>
+                <View style={styles.postHeader}>
+                    <Avatar rounded title='TI' avatarStyle={styles.cardAvatar} titleStyle={styles.title} size='medium'/>
+                    <Text style={{fontSize: 18}}>{props.userName}</Text>
+                </View>
+            </TouchableOpacity>
+            <Image style={styles.image} source={{uri: props.image}}/>
+            <View style={styles.postFooter}>
+                <TouchableOpacity style={{flex: 1}} onPress={() => setLiked(!liked)}>
+                    {updateLiked(liked)}
                 </TouchableOpacity>
-                <Image style={styles.image} source={{uri: image}}/>
-                <View style={styles.container_text}>
-                    <Ionicons style={styles.likeIcon} name="heart-outline" size={32} color="black" />
-                    <Text style={styles.title}>
-                        {props.title}
-                    </Text>
-                    <Ionicons style={styles.commentIcon} name="chatbubble-outline" size={32} color="black" />
-                </View>
-                <View style={styles.captionContainer}>
-                    <Text style={styles.captionText}>
-                        {props.caption}
-                    </Text>
-                </View>
+                <Text style={styles.title}>
+                    {props.title}
+                </Text>
+                <TouchableOpacity style={{flex: 1}}>
+                    {<Ionicons style={styles.commentIcon} name="chatbubble-outline" size={32} color="black" />}
+                </TouchableOpacity>
             </View>
-        // {/* </TouchableOpacity> */}
+            <View style={styles.captionContainer}>
+                <Text style={styles.captionText}>
+                    {props.caption}
+                </Text>
+            </View>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    cardContainer: {
         flex: 1,
-        flexDirection: 'row',
-        borderRadius:20,
-        elevation: 3,
+        flexDirection: 'column',
+        marginBottom: 10,
         backgroundColor: 'white',
+        borderRadius:10,
+        //flex: 1,
+        //flexDirection: 'row',
+        //borderRadius:20,
+        elevation: 3,
+        //backgroundColor: '#FFF',
         shadowOffset: {
             width: 1,
             height: 1
@@ -64,29 +77,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 2,
         marginHorizontal: 4,
-        height: 350,
-        width: "98%",
+        //height: 350,
+        //width: "98%",
         justifyContent: 'center',
-        marginBottom: 10,
-    },
-    flexStyle: {
-         flex: 1, flexDirection: 'column', marginBottom: 10, backgroundColor: 'white',borderRadius:10,
-        //elevation: 3,
-        //backgroundColor: '#ffff',
-        // shadowOffset: {
-        //     width: 1,
-        //     height: 1
-        // },
-        //shadowColor: '#333',
-        //shadowOpacity: 0.3,
-        //shadowRadius: 2,
-       // height: 300,
-        //flex: 1,
-        //flexDirection: 'column',
-        //width: 175,
-        //justifyContent: 'center',
-        //padding: 5,
-        //marginBottom: 20,
+        //marginBottom: 25,
+        //paddingBottom: 50,
+        //marginTop: 15
     },
     postHeader: {
         padding: 10,
@@ -94,15 +90,21 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between'
     },
+    postFooter: {
+        padding: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     cardAvatar: {
         backgroundColor: 'gray'
     },
     title: {
-        fontSize: 16,
+        fontSize: 30,
         color: '#000',
         fontWeight: 'bold',
         marginTop: 10,
-        //flex: 1
+        flex: 2,
     },
     container_text: {
         flexDirection: 'row',
@@ -111,7 +113,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     captionText: {
-        fontSize: 45
+        fontSize: 20,
+        paddingBottom: 10
     },
     description: {
         marginTop: 10,
@@ -119,19 +122,21 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
     },
     image: {
-        width: '100%',
+        width: '98%',
         height: 300,
+        alignSelf: 'center',
+        borderRadius: 15
     },
     likeIcon: {
-        //marginRight: 50,
-        //paddingLeft: 10,
         flex: 1,
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        marginTop: 20
     },
     commentIcon: {
         flex: 1,
-        justifyContent: 'space-between',
-        //paddingLeft: 200
+        justifyContent: 'flex-start',
+        left: 40,
+        marginTop: 20
     }
 });
 export default Post;

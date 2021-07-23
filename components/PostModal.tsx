@@ -117,6 +117,8 @@ const PostModal = (props: Props) => {
                       onPress={() => {
                         setModalVisible(!modalVisible)
                         setImage(null)
+                        setCaption('')
+                        setTitle('')
                       }}
                     />
                   </View>

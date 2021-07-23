@@ -1,23 +1,15 @@
-import { StackScreenProps } from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native';
-import { executeSignup } from '../services/cognito/AuthService'
-import { Text, View } from '../components/Themed';
-
-import { RootStackParamList } from '../types';
-
-type RegistrationParams = {
-    username: string,
-    password: string,
-    firstname: string,
-    lastname: string,
-    email: string
-}
+import { executeSignup } from '../../services/cognito/AuthService'
+import { Text, View } from '../../components/Themed';
+import { RegistrationParams } from '../../services/cognito/AuthService'
+import { RootStackParamList, AuthParamList } from '../../types';
   
 
 function RegistrationScreen({
     navigation,
-  }: StackScreenProps<RootStackParamList, 'Login'>) {
+  }: StackNavigationProp<AuthParamList, 'RegistrationScreen'>) {
 
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setlastName] = React.useState('');
