@@ -1,5 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { ProfileStackParamList } from '../types'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 type Props = {
     title: string,
@@ -57,9 +60,27 @@ const styles = StyleSheet.create({
     },
 });
 
+type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, 'MyPostsScreen'>;
+
 const ProfileItem = (props: Props) => {
+    const navigation = useNavigation<ProfileScreenNavigationProp>();
+
+    const chooseScreen = () => {
+        let screen;
+        switch(props.title){
+            case 'Posts':
+                screen =  'MyPostsScreen'
+                break;
+            case 'Settings':
+                break;
+            case 'Log Out':
+                break;
+        }
+        return screen
+    };
+
     return(
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(chooseScreen())}>
             
             <View style={styles.icon}>{props.icon}</View>
             <View style={styles.container_text}>

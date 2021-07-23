@@ -1,80 +1,63 @@
-import { StackScreenProps } from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native';
-import { executeSignup } from '../services/cognito/AuthService'
-import { Text, View } from '../components/Themed';
+import { executeSignIn } from '../../services/cognito/AuthService'
+import { Text, View } from '../../components/Themed';
+import { AuthParams } from '../../services/cognito/AuthService'
+import { AuthParamList } from '../../types';
 
-import { RootStackParamList } from '../types';
-
-export default function RegistrationScreen({
+export default function LginScreen({
     navigation,
-  }: StackScreenProps<RootStackParamList, 'Login'>) {
-
-    const [firstName, setFirstName] = React.useState('');
-    const [lastName, setlastName] = React.useState('');
-    const [email, setEmail] = React.useState('');
+  }: StackNavigationProp<AuthParamList, 'LoginScreen'>) {
 
     const [userName, setUserName] = React.useState('');
     const [password, setPassword] = React.useState('');
 
+    const setAuthParams = (): AuthParams => {
+        let authParams: AuthParams = {
+            username: userName,
+            password: password,
+        }
+        return authParams;
+    }
 
     return (
         <View style={styles.container}>
-            <Image source = {require('../assets/images/food.jpg')} style={[styles.image]}/>
+            <Image source = {require('../../assets/images/food.jpg')} style={[styles.image]}/>
             <View style={[styles.inputView]}>
                 <TextInput
                     style={styles.TextInput}
-                    placeholder="First Name"
+                    placeholder="Username"
                     placeholderTextColor="#003f5c"
-                    onChangeText={(firstName) => {
-                        setFirstName(firstName)
+                    onChangeText={(userName) => {
+                        setUserName(userName)
                         // console.warn(userName)
-                    }}
+                    } }
                 />
             </View>
     
             <View style={[styles.inputView]}>
                 <TextInput
                     style={styles.TextInput}
-                    placeholder="Last name"
+                    placeholder="Password."
                     placeholderTextColor="#003f5c"
                     secureTextEntry={true}
-                    onChangeText={(lastName) => setlastName(lastName)}
+                    onChangeText={(password) => setPassword(password)}
+                    // onChangeText={(password) => this.setState({'password': password})}
                 />
             </View>
-            <View style={[styles.inputView]}>
-                <TextInput
-                    style={styles.TextInput}
-                    placeholder="Email"
-                    placeholderTextColor="#003f5c"
-                    secureTextEntry={true}
-                    onChangeText={(email) => setlastName(email)}
-                />
-            </View>
-            <View style={[styles.inputView]}>
-                <TextInput
-                    style={styles.TextInput}
-                    placeholder="userName"
-                    placeholderTextColor="#003f5c"
-                    secureTextEntry={true}
-                    onChangeText={(userName) => setlastName(userName)}
-                />
-            </View>
-            <View style={[styles.inputView]}>
-                <TextInput
-                    style={styles.TextInput}
-                    placeholder="Password"
-                    placeholderTextColor="#003f5c"
-                    secureTextEntry={true}
-                    onChangeText={(password) => setlastName(password)}
-                />
-            </View>
+            <TouchableOpacity onPress={() => {
+                    navigation.push('Registration')
+                }}>
+                <Text style={styles.forgotPasswordButton}>No account? Sign up now!</Text>
+            </TouchableOpacity>            
             <TouchableOpacity style={styles.loginButton}
                 onPress={() => {
-                    executeSignup(userName, password);
+                    let params = setAuthParams();
+                    executeSignIn(params);
                     navigation.replace('Root')
                 }}>
-                <Text>SUBMIT</Text>
+                <Text>LOGIN</Text>
             </TouchableOpacity>
         </View>
     );

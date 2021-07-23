@@ -9,9 +9,9 @@ import TouchableOpacity from 'react-native'
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import LoginScreen from '../screens/LoginScreen';
-import RegistrationScreen from '../screens/RegistrationScreen'
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, RecipesParamList, AuthParamList, DrawerRouteConfig } from '../types';
+import LoginScreen from '../screens/auth/LoginScreen';
+import { RegistrationScreen } from '../screens/auth/RegistrationScreen'
+import { BottomTabParamList, HomeStackParamList, ProfileStackParamList, RecipesParamList, AuthParamList } from '../types';
 
 const AuthStack = createStackNavigator<AuthParamList>();
 

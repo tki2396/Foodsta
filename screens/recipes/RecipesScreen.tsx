@@ -1,16 +1,16 @@
 import * as React from 'react'
 import { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, ActivityIndicator, FlatList, Button } from 'react-native';
-import { StackScreenProps } from '@react-navigation/stack';
-import { RecipesParamList } from '../types';
+import { StyleSheet, TouchableOpacity, ActivityIndicator, FlatList, Button, View } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RecipesParamList } from '../../types';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-import Feed from '../components/feed';
+import EditScreenInfo from '../../components/EditScreenInfo';
+import { Text } from '../../components/Themed';
+import Feed from '../../components/feed';
 
-export default function CategoryRecipeScreen({
+export default function RecipeScreen({
   route
-}: StackScreenProps<RecipesParamList, 'CategoryRecipeScreen'>) {
+}: StackNavigationProp<RecipesParamList, 'RecipeScreen'>) {
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);

@@ -16,12 +16,15 @@ export type BottomTabParamList = {
   Login: undefined;
 };
 
-export type TabOneParamList = {
+export type HomeStackParamList = {
   HomeScreen: undefined;
+  PostsScreen: undefined;
 };
 
-export type TabTwoParamList = {
+export type ProfileStackParamList = {
   ProfileScreen: undefined;
+  MyPostsScreen: undefined;
+  SettingsScreen: undefined;
 };
 
 export type RecipesParamList = {
@@ -34,22 +37,4 @@ export type RecipesParamList = {
 export type AuthParamList = {
   RegistrationScreen: undefined,
   LoginScreen: undefined;
-}
-
-export type DrawerRouteConfig = {
-  Home: undefined,
-  Login: undefined,
-  Recipes: undefined
-}
-
-export type DrawerParamList = {
-    initialRouteName: 'Login',
-    gesturesEnabled: false,
-    headerMode: 'none',
-    contentComponent: undefined,
-    contentOptions: {
-      labelStyle: {
-        color: 'white'
-      }
-    }
 }

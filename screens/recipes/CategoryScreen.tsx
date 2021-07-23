@@ -1,24 +1,22 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { StyleSheet, Button, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import { StackScreenProps } from '@react-navigation/stack';
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text } from '../components/Themed';
+import { StyleSheet, Button, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import EditScreenInfo from '../../components/EditScreenInfo';
+import { Text, View } from '../../components/Themed';
 import { getCustomTabsSupportingBrowsersAsync } from 'expo-web-browser';
-import DrawerNavigator from '../navigation/DrawerNavigator'
 import {useNavigation} from '@react-navigation/native';
-import { DrawerRouteConfig, DrawerParamList, RootStackParamList } from '../types';
-import Sandbox from '../components/Sandbox'
-import { RecipeItem } from '../components/RecipeItem';
-import layout from '../constants/Layout'
+import Sandbox from '../../components/Sandbox'
+import RecipeItem from '../../components/RecipeItem';
+import layout from '../../constants/Layout'
 import { FlatList } from 'react-native-gesture-handler';
-import { cuisines } from '../constants/Constants'
-import { RecipesParamList } from '../types';
-import PostModal from '../components/PostModal'
+import { cuisines } from '../../constants/Constants'
+import { RecipesParamList } from '../../types';
+import PostModal from '../../components/PostModal'
 
-export default function RecipeScreen({
+export default function CategoryScreen({
   navigation
-}: StackScreenProps<RecipesParamList, 'RecipeScreen'>) {
+}: StackNavigationProp<RecipesParamList, 'RecipeScreen'>) {
 
 
   return (
@@ -29,7 +27,7 @@ export default function RecipeScreen({
           data={DATA}
           keyExtractor={item => item.id}
           renderItem={({ item }) =>
-          <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}} onPress={() => navigation.navigate('CategoryRecipesScreen', {cuisine: item.title})}>
+          <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}} onPress={() => navigation.navigate('Recipes', {cuisine: item.title})}>
 
             <RecipeItem
               title={item.title}
@@ -38,7 +36,7 @@ export default function RecipeScreen({
           }
         />
         <View style={styles.floatingButton}>
-          <PostModal />
+          <PostModal username="tobiijose"/>
         </View>
       {/* </View> */}
       
@@ -84,41 +82,41 @@ const DATA = [
   {
     id: 1,
     title: cuisines.AMERICAN,
-    image: require('../assets/images/food/american_food.jpeg')
+    image: require('../../assets/images/food/american_food.jpeg')
   },
   {
     id: 2,
     title: cuisines.CHINESE,
-    image: require('../assets/images/food/chinese_food.jpeg')
+    image: require('../../assets/images/food/chinese_food.jpeg')
   },
   {
     id: 3,
     title: cuisines.INDIAN,
-    image: require('../assets/images/food/indian_food.jpeg')
+    image: require('../../assets/images/food/indian_food.jpeg')
   },
   {
     id: 4,
     title: cuisines.ITALIAN,
-    image: require('../assets/images/food/italian_food.jpeg')
+    image: require('../../assets/images/food/italian_food.jpeg')
   },
   {
     id: 5,
     title: cuisines.KOREAN,
-    image: require('../assets/images/food/korean_food.jpeg')
+    image: require('../../assets/images/food/korean_food.jpeg')
   },
   {
     id: 6,
     title: cuisines.MEDITERRANEAN,
-    image: require('../assets/images/food/med_food.jpeg')
+    image: require('../../assets/images/food/med_food.jpeg')
   },
   {
     id: 7,
     title: cuisines.MEXICAN,
-    image: require('../assets/images/food/mexican_food.jpeg')
+    image: require('../../assets/images/food/mexican_food.jpeg')
   },
   {
     id: 8,
     title: cuisines.THAI,
-    image: require('../assets/images/food/thai_food.jpeg')
+    image: require('../../assets/images/food/thai_food.jpeg')
   },
 ]

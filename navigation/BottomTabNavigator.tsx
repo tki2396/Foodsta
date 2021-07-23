@@ -11,12 +11,12 @@ import TouchableOpacity from 'react-native'
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import RecipeScreen from '../screens/RecipeScreen';
-import CategoryRecipeScreen from '../screens/CategoryRecipeScreen'
-// import LoginScreen from '../screens/LoginScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, RecipesParamList, AuthParamList, DrawerRouteConfig } from '../types';
+import HomeScreen from '../screens/home/HomeScreen';
+import ProfileScreen from '../screens/profile/ProfileScreen';
+import CategoryScreen from '../screens/recipes/CategoryScreen';
+import RecipesScreen from '../screens/recipes/RecipesScreen'
+import MyPostsScreen from '../screens/profile/MyPostsScreen';
+import { BottomTabParamList, HomeStackParamList, ProfileStackParamList, RecipesParamList, AuthParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -70,7 +70,7 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 
-const HomeStack = createStackNavigator<TabOneParamList>();
+const HomeStack = createStackNavigator<HomeStackParamList>();
 
 function HomeNavigator() {
   return (
@@ -84,7 +84,7 @@ function HomeNavigator() {
   );
 }
 
-const ProfileStack = createStackNavigator<TabTwoParamList>();
+const ProfileStack = createStackNavigator<ProfileStackParamList>();
 
 function ProfileNavigator() {
   return (
@@ -92,7 +92,12 @@ function ProfileNavigator() {
       <ProfileStack.Screen
         name="ProfileScreen"
         component={ProfileScreen}
-        options={{ headerTitle: 'LOAD PROFILE NAME' }}
+        options={{ headerTitle: 'Profile' }}
+      />
+      <ProfileStack.Screen
+        name="MyPostsScreen"
+        component={MyPostsScreen}
+        options={{ headerTitle: `tobiijose's posts` }}
       />
     </ProfileStack.Navigator>
   );
@@ -102,15 +107,15 @@ const RecipesStack = createStackNavigator<RecipesParamList>();
 
 function RecipesNavigator() {
   return (
-    <RecipesStack.Navigator initialRouteName="RecipeScreen">
+    <RecipesStack.Navigator initialRouteName="CategoryScreen">
       <RecipesStack.Screen
-        name="RecipeScreen"
-        component={RecipeScreen}
-        options={{ headerTitle: 'Recipes' }}
+        name="CategoryScreen"
+        component={CategoryScreen}
+        options={{ headerTitle: 'Categories' }}
       />
       <RecipesStack.Screen 
-        name="CategoryRecipesScreen"
-        component={CategoryRecipeScreen}
+        name="Recipes"
+        component={RecipesScreen}
       />
     </RecipesStack.Navigator>
   );
