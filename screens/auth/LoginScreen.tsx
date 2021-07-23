@@ -23,7 +23,7 @@ export default function LginScreen({
 
     return (
         <View style={styles.container}>
-            <Image source = {require('../assets/images/food.jpg')} style={[styles.image]}/>
+            <Image source = {require('../../assets/images/food.jpg')} style={[styles.image]}/>
             <View style={[styles.inputView]}>
                 <TextInput
                     style={styles.TextInput}

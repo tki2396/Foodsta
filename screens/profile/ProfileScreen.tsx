@@ -9,7 +9,7 @@ import PostModal from '../../components/PostModal'
 export default function ProfileScreen() {
   return (
     <View style={styles.container}>
-      <Image source={require("../assets/images/food.jpg")} style={styles.photo}/>
+      <Image source={require("../../assets/images/food.jpg")} style={styles.photo}/>
       <ProfileItem title="Posts" description="My Posts" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
       <ProfileItem title="Settings" description="Go to Settings" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
       <ProfileItem title="Log Out" description="Log Out" icon={<Ionicons name="home" size={32}/>}></ProfileItem>

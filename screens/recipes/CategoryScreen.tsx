@@ -5,7 +5,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 import { getCustomTabsSupportingBrowsersAsync } from 'expo-web-browser';
-import DrawerNavigator from '../../navigation/DrawerNavigator'
 import {useNavigation} from '@react-navigation/native';
 import Sandbox from '../../components/Sandbox'
 import RecipeItem from '../../components/RecipeItem';
@@ -83,41 +82,41 @@ const DATA = [
   {
     id: 1,
     title: cuisines.AMERICAN,
-    image: require('../assets/images/food/american_food.jpeg')
+    image: require('../../assets/images/food/american_food.jpeg')
   },
   {
     id: 2,
     title: cuisines.CHINESE,
-    image: require('../assets/images/food/chinese_food.jpeg')
+    image: require('../../assets/images/food/chinese_food.jpeg')
   },
   {
     id: 3,
     title: cuisines.INDIAN,
-    image: require('../assets/images/food/indian_food.jpeg')
+    image: require('../../assets/images/food/indian_food.jpeg')
   },
   {
     id: 4,
     title: cuisines.ITALIAN,
-    image: require('../assets/images/food/italian_food.jpeg')
+    image: require('../../assets/images/food/italian_food.jpeg')
   },
   {
     id: 5,
     title: cuisines.KOREAN,
-    image: require('../assets/images/food/korean_food.jpeg')
+    image: require('../../assets/images/food/korean_food.jpeg')
   },
   {
     id: 6,
     title: cuisines.MEDITERRANEAN,
-    image: require('../assets/images/food/med_food.jpeg')
+    image: require('../../assets/images/food/med_food.jpeg')
   },
   {
     id: 7,
     title: cuisines.MEXICAN,
-    image: require('../assets/images/food/mexican_food.jpeg')
+    image: require('../../assets/images/food/mexican_food.jpeg')
   },
   {
     id: 8,
     title: cuisines.THAI,
-    image: require('../assets/images/food/thai_food.jpeg')
+    image: require('../../assets/images/food/thai_food.jpeg')
   },
 ]
