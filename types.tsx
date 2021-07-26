@@ -19,6 +19,7 @@ export type BottomTabParamList = {
 export type HomeStackParamList = {
   HomeScreen: undefined;
   PostsScreen: undefined;
+  CommentsScreen: undefined;
 };
 
 export type ProfileStackParamList = {
@@ -32,6 +33,9 @@ export type RecipesParamList = {
   RecipeScreen: {
     cuisine: string
   };
+  RecipeInformation: {
+    recipeId: string
+  }
 };
 
 export type AuthParamList = {

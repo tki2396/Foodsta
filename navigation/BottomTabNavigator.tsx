@@ -16,7 +16,9 @@ import ProfileScreen from '../screens/profile/ProfileScreen';
 import CategoryScreen from '../screens/recipes/CategoryScreen';
 import RecipesScreen from '../screens/recipes/RecipesScreen'
 import MyPostsScreen from '../screens/profile/MyPostsScreen';
+import CommentsScreen from '../screens/home/CommentsScreen'
 import { BottomTabParamList, HomeStackParamList, ProfileStackParamList, RecipesParamList, AuthParamList } from '../types';
+import RecipeInformation from '../screens/recipes/RecipeInformation';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -49,13 +51,6 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }: any) => <TabBarIcon name="md-person-outline" color={color} />,
         }}
       />
-      {/* <BottomTab.Screen
-        name="Login"
-        component={LoginNavigator}
-        options={{
-          tabBarIcon: ({ color }: any) => <TabBarIcon name="ios-code" color={color} />,
-        }}
-      /> */}
     </BottomTab.Navigator>
 
   );
@@ -79,6 +74,11 @@ function HomeNavigator() {
         name="HomeScreen"
         component={HomeScreen}
         options={{ headerTitle: 'Home' }}
+      />
+      <HomeStack.Screen
+        name="CommentsScreen"
+        component={CommentsScreen}
+        options={{ headerTitle: 'Comments' }}
       />
     </HomeStack.Navigator>
   );
@@ -116,6 +116,10 @@ function RecipesNavigator() {
       <RecipesStack.Screen 
         name="Recipes"
         component={RecipesScreen}
+      />
+      <RecipesStack.Screen 
+        name="Recipe Information"
+        component={RecipeInformation}
       />
     </RecipesStack.Navigator>
   );

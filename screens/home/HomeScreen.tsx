@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useState, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, ActivityIndicator, FlatList, Alert, View } from 'react-native';
-
+import { StackNavigationProp } from '@react-navigation/stack'
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text } from '../../components/Themed';
 import Feed from '../../components/feed';
@@ -15,17 +15,12 @@ function getData(){
   .catch((error) => console.error(error))
 }
 
-export default function HomeScreen() {
+const HomeScreen = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
   useEffect(() => {
     getData().then(json => setData(json)).catch(error => console.error(error)).finally(() => setLoading(false))
-    // fetch("https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/posts/getAll")
-    //   .then((response) => response.json())
-    //   .then((json) => setData(json))
-    //   .catch((error) => console.error(error))
-    //   .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -37,15 +32,16 @@ export default function HomeScreen() {
           onRefresh={() => getData().then(json => setData(json)).catch(err => console.log(err))}
           initialNumToRender={1}
           data={data}
-          keyExtractor={(item) => item.Id}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }: any) => (
-            <Post id={item.Id}
+            <Post
               userName={item['cognito-username']}
               avatarSrc={""}
               caption={item.caption}
               liked={true}
               image={item.image}
-              title={item.title}/>
+              title={item.title}
+              postId={item.id}/>
           )}
         />
         
@@ -86,3 +82,4 @@ const styles = StyleSheet.create({
   }
 });
 
+export default HomeScreen;

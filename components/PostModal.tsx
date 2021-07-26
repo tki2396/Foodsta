@@ -5,7 +5,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import * as ImagePicker from 'expo-image-picker';
 
 type Props = {
-  username: string
+  username: string,
 }
 
 const PostModal = (props: Props) => {
@@ -14,6 +14,7 @@ const PostModal = (props: Props) => {
     const [caption, setCaption] = useState('');
     const [imageUri, setImage] = useState<string | null>();
     const [imageBase64, setImageBase64] = useState<string | undefined>()
+    const [postId, setPostId] = useState('')
 
     useEffect(() => {
       (async () => {
@@ -25,6 +26,15 @@ const PostModal = (props: Props) => {
         }
       })();
     }, []);
+
+    const uuidv4 = () => {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        const uuid = v.toString(16);
+        setPostId(uuid);
+        return uuid;
+      });
+  }
 
     const createPost = () => {
       fetch('https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/posts/create', {
@@ -38,6 +48,7 @@ const PostModal = (props: Props) => {
           caption: caption,
           imageBase64: imageBase64,
           title: title,
+          postId: postId,
           contentType: imageUri ? imageUri.substring(imageUri.indexOf('.'), imageUri.length) : 'image/jpeg'
         })
       })
@@ -136,7 +147,6 @@ const PostModal = (props: Props) => {
     );
   };
   
-
   const styles = StyleSheet.create({
     centeredView: {
       flex: 1,

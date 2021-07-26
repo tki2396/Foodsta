@@ -1,13 +1,37 @@
 import React from 'react';
 import { StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
 import { Text, View } from '../components/Themed';
-
+import { useNavigation } from '@react-navigation/native';
+import { RecipesParamList } from '../types';
+import { StackNavigationProp } from '@react-navigation/stack'
 
 type Props = {
     title: string,
     description: string,
     image_url: string
 };
+
+type RecipeScreenNavigationProp = StackNavigationProp<RecipesParamList, 'RecipeInformation'>;
+
+const FeedItem = (props: Props) => {
+    const navigation = useNavigation<RecipeScreenNavigationProp>();
+    return(
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Recipe Information', {recipeId: '1'})}>
+            <View style={{flex: 1, flexDirection: 'column', marginBottom: 10}}>
+        
+                <Image style={styles.photo} source={{uri: props.image_url}}/>
+                <View style={styles.container_text}>
+                    <Text style={styles.title}>
+                        {props.title}
+                    </Text>
+                    <Text style={styles.description}>
+                        {props.description}
+                    </Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -63,25 +87,5 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
 });
-
-const FeedItem = (props: Props) => {
-    return(
-        <TouchableOpacity style={styles.container}>
-            <View style={{flex: 1, flexDirection: 'column', marginBottom: 10}}>
-        
-                <Image style={styles.photo} source={{uri: props.image_url}}/>
-                <View style={styles.container_text}>
-                    <Text style={styles.title}>
-                        {props.title}
-                    </Text>
-                    <Text style={styles.description}>
-                        {props.description}
-                    </Text>
-                </View>
-            </View>
-        </TouchableOpacity>
-    );
-}
-
 
 export default FeedItem;

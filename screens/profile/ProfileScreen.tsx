@@ -9,10 +9,14 @@ import PostModal from '../../components/PostModal'
 export default function ProfileScreen() {
   return (
     <View style={styles.container}>
+      <View>
       <Image source={require("../../assets/images/food.jpg")} style={styles.photo}/>
-      <ProfileItem title="Posts" description="My Posts" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
-      <ProfileItem title="Settings" description="Go to Settings" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
-      <ProfileItem title="Log Out" description="Log Out" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
+      </View>
+      <View style={{flex: 1, flexDirection: 'column'}}>
+        <ProfileItem title="Posts" description="My Posts" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
+        <ProfileItem title="Settings" description="Go to Settings" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
+        <ProfileItem title="Log Out" description="Log Out" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
+      </View>
       <View style={styles.floatingButton}>
         <PostModal username='tobiijose'/>
       </View>
@@ -53,7 +57,8 @@ const styles = StyleSheet.create({
     height: 150,
     width: 150,
     borderRadius: 150/2,
-    marginBottom: 90
+    marginBottom: 100,
+    marginTop:  100
   },
   card:{
     flex: 1,

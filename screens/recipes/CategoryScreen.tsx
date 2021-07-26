@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { StyleSheet, Button, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { StyleSheet, Button, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+import { Text } from '../../components/Themed';
 import { getCustomTabsSupportingBrowsersAsync } from 'expo-web-browser';
 import {useNavigation} from '@react-navigation/native';
 import Sandbox from '../../components/Sandbox'
@@ -21,7 +21,6 @@ export default function CategoryScreen({
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.contentContainer}> */}
         <FlatList
           numColumns={2}
           data={DATA}
@@ -37,9 +36,7 @@ export default function CategoryScreen({
         />
         <View style={styles.floatingButton}>
           <PostModal username="tobiijose"/>
-        </View>
-      {/* </View> */}
-      
+        </View>      
     </View>
   );
 }

@@ -4,6 +4,9 @@ import { Avatar } from 'react-native-elements'
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Ionicons } from '@expo/vector-icons'
 import { Text, View } from '../components/Themed';
+import { useNavigation } from "@react-navigation/core";
+import {StackNavigationProp} from '@react-navigation/stack'
+import { ProfileStackParamList } from '../types'
 
 type Props = {
     userName: string,
@@ -11,9 +14,10 @@ type Props = {
     caption: string,
     liked: boolean,
     image: string,
-    title: string
+    title: string,
+    postId: string,
 };
-
+type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, 'ProfileScreen'>;
 
 const Post = (props: Props) => {
     const [userName, setUserName] = useState('');
@@ -21,16 +25,17 @@ const Post = (props: Props) => {
     const [caption, setCaption] = useState('');
     const [liked, setLiked] = useState(false);
     const [image, setImage] = useState('');
+    const [postId, setPostId] = useState('')
 
-    
+    const navigation = useNavigation<ProfileScreenNavigationProp>();
+
     const updateLiked = (liked: Boolean) => {
         return liked ? <Ionicons style={styles.likeIcon} name="heart" size={32} color="red" /> : <Ionicons style={styles.likeIcon} name="heart-outline" size={32} color="black" />
     }
 
-
     return(
         <View style={styles.cardContainer}>
-            <TouchableOpacity>
+        <TouchableOpacity>
                 <View style={styles.postHeader}>
                     <Avatar rounded title='TI' avatarStyle={styles.cardAvatar} titleStyle={styles.title} size='medium'/>
                     <Text style={{fontSize: 18}}>{props.userName}</Text>
@@ -44,7 +49,7 @@ const Post = (props: Props) => {
                 <Text style={styles.title}>
                     {props.title}
                 </Text>
-                <TouchableOpacity style={{flex: 1}}>
+                <TouchableOpacity style={{flex: 1}} onPress={() => navigation.navigate('CommentsScreen', {postId: props.postId, username: 'tobiijose'})}>
                     {<Ionicons style={styles.commentIcon} name="chatbubble-outline" size={32} color="black" />}
                 </TouchableOpacity>
             </View>

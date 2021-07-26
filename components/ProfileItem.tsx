@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
+import { StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ProfileStackParamList } from '../types'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { Text, View } from '../components/Themed';
+
 
 type Props = {
     title: string,
@@ -26,6 +28,7 @@ const styles = StyleSheet.create({
             width: 1,
             height: 1
         },
+        width:'100%',
         shadowColor: '#333',
         shadowOpacity: 0.3,
         shadowRadius: 2,
@@ -36,9 +39,9 @@ const styles = StyleSheet.create({
         //backgroundColor: 'pink'
     },
     container_text: {
-        flex: 1,
+        flex: 4,
         flexDirection: 'column',
-        marginLeft: 12,
+        //marginLeft: 12,
         justifyContent: 'center',
         //backgroundColor: 'purple'
     },
@@ -53,10 +56,13 @@ const styles = StyleSheet.create({
         //backgroundColor: 'brown'
     },
     icon: {
-        marginRight: 50,
-        paddingLeft: 10,
-        alignSelf: 'center'
-        //backgroundColor: 'yellow'
+        //marginRight: 50,
+        //paddingLeft: 10,
+        //alignSelf: 'center',
+        //backgroundColor: 'yellow',
+        //backgroundColor:'red',
+        flex: 1,
+        justifyContent: 'center'
     },
 });
 
