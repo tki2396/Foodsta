@@ -31,10 +31,11 @@ export type ProfileStackParamList = {
 export type RecipesParamList = {
   CategoryScreen: undefined;
   RecipeScreen: {
-    cuisine: string
+    cuisine: string,
   };
   RecipeInformation: {
-    recipeId: string
+    recipeId: string,
+    recipeName: string
   }
 };
 

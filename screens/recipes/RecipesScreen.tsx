@@ -6,7 +6,7 @@ import { RecipesParamList } from '../../types';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text } from '../../components/Themed';
-import Feed from '../../components/feed';
+import RecipeFeed from '../../components/RecipeFeed';
 
 export default function RecipeScreen({
   route
@@ -30,7 +30,7 @@ export default function RecipeScreen({
     
   <View style={styles.container}>
       {isLoading ? <ActivityIndicator/> : (
-        <Feed itemList={data.Items}/>  
+        <RecipeFeed itemList={data.Items}/>  
       )}
     </View>
   );

@@ -1,20 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
-import FeedItem from '../components/FeedItem'
+import Recipe from '../components/Recipe'
 
-//keyExtracetor={(item) => item.id}
-//numColumns - add marginHorizontal/marginTop
-const Feed = ({ itemList }: any) => (
+const RecipeFeed = ({ itemList }: any) => (
     <FlatList
             initialNumToRender={1}
             data={itemList}
-            keyExtractor={item => item.recipeId}
-            renderItem={({ item }) => <FeedItem
+            keyExtractor={item => item.RecipeId}
+            renderItem={({ item }) => <Recipe
                 title={item.title}
                 description={item.summary}
                 image_url={item.image}
+                recipeId={item.RecipeId}
             />}
         />
 );
 
-export default Feed
+export default RecipeFeed

@@ -56,30 +56,25 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 16,
         color: '#000',
-        //backgroundColor: 'pink'
     },
     container_text: {
         flex: 1,
         flexDirection: 'column',
         marginLeft: 12,
         justifyContent: 'center',
-        //backgroundColor: 'purple'
     },
     description: {
         fontSize: 11,
         fontStyle: 'italic',
-        //backgroundColor: 'blue'
     },
     photo: {
         height: 80,
         width: 80,
-        //backgroundColor: 'brown'
     },
     icon: {
         marginRight: 50,
         paddingLeft: 10,
         alignSelf: 'center'
-        //backgroundColor: 'yellow'
     },
     cardAvatar: {
         backgroundColor: 'gray'

@@ -1,22 +1,24 @@
 import React from 'react';
-import { StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
+import { StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import { RecipesParamList } from '../types';
-import { StackNavigationProp } from '@react-navigation/stack'
+import { StackNavigationProp } from '@react-navigation/stack';
+import { WebView } from 'react-native-webview';
 
 type Props = {
     title: string,
     description: string,
     image_url: string
+    recipeId: string
 };
 
 type RecipeScreenNavigationProp = StackNavigationProp<RecipesParamList, 'RecipeInformation'>;
 
-const FeedItem = (props: Props) => {
+const Recipe = (props: Props) => {
     const navigation = useNavigation<RecipeScreenNavigationProp>();
     return(
-        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Recipe Information', {recipeId: '1'})}>
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Recipe Information', { recipeId: props.recipeId, recipeName: props.title })}>
             <View style={{flex: 1, flexDirection: 'column', marginBottom: 10}}>
         
                 <Image style={styles.photo} source={{uri: props.image_url}}/>
@@ -24,9 +26,9 @@ const FeedItem = (props: Props) => {
                     <Text style={styles.title}>
                         {props.title}
                     </Text>
-                    <Text style={styles.description}>
-                        {props.description}
-                    </Text>
+                    <WebView style={styles.description}
+                        source={{html: props.description}}
+                    />
                 </View>
             </View>
         </TouchableOpacity>
@@ -48,8 +50,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 2,
         marginHorizontal: 4,
-        //height: 350,
-        //width: "98%",
         justifyContent: 'center',
         marginBottom: 25,
         paddingBottom: 50,
@@ -88,4 +88,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FeedItem;
+export default Recipe;

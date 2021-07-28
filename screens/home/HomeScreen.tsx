@@ -2,10 +2,7 @@ import * as React from 'react'
 import { useState, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, ActivityIndicator, FlatList, Alert, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack'
-import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text } from '../../components/Themed';
-import Feed from '../../components/feed';
-import { stringify } from 'querystring';
 import Post from '../../components/Post';
 import PostModal from '../../components/PostModal'
 
@@ -32,7 +29,7 @@ const HomeScreen = () => {
           onRefresh={() => getData().then(json => setData(json)).catch(err => console.log(err))}
           initialNumToRender={1}
           data={data}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item: any) => item.id}
           renderItem={({ item }: any) => (
             <Post
               userName={item['cognito-username']}

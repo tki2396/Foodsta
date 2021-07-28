@@ -80,6 +80,11 @@ function HomeNavigator() {
         component={CommentsScreen}
         options={{ headerTitle: 'Comments' }}
       />
+      <ProfileStack.Screen
+        name="MyPostsScreen"
+        component={MyPostsScreen}
+        options={{ headerTitle: `tobiijose's posts` }}
+      />
     </HomeStack.Navigator>
   );
 }
@@ -116,10 +121,12 @@ function RecipesNavigator() {
       <RecipesStack.Screen 
         name="Recipes"
         component={RecipesScreen}
+        options={({ route }: any) => ({ title: route.params.cuisine })}
       />
       <RecipesStack.Screen 
         name="Recipe Information"
         component={RecipeInformation}
+        options={({ route }: any) => ({ title: route.params.recipeName })}
       />
     </RecipesStack.Navigator>
   );
