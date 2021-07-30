@@ -3,9 +3,8 @@ import * as React from 'react';
 import { StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native';
 import { executeSignup } from '../../services/cognito/AuthService'
 import { Text, View } from '../../components/Themed';
-import { RegistrationParams } from '../../services/cognito/AuthService'
+import { RegistrationParams } from '../../services/cognito/authtypes'
 import { RootStackParamList, AuthParamList } from '../../types';
-  
 
 function RegistrationScreen({
     navigation,

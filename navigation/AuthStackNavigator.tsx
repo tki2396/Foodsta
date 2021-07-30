@@ -15,7 +15,7 @@ import { BottomTabParamList, HomeStackParamList, ProfileStackParamList, RecipesP
 
 const AuthStack = createStackNavigator<AuthParamList>();
 
-export default function BottomTabNavigator() {
+export default function AuthStackNavigator() {
   const colorScheme = useColorScheme();
 
   return (

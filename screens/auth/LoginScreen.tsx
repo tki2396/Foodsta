@@ -3,10 +3,23 @@ import * as React from 'react';
 import { StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native';
 import { executeSignIn } from '../../services/cognito/AuthService'
 import { Text, View } from '../../components/Themed';
-import { AuthParams } from '../../services/cognito/AuthService'
+import { AuthParams } from '../../services/cognito/authtypes'
 import { AuthParamList } from '../../types';
+import { localSave } from '../../services/MySecureStore'
 
-export default function LginScreen({
+const login = async (authParams: AuthParams, navigation: any) => {
+    const loginSuccess = await executeSignIn(authParams);
+    console.error(loginSuccess);
+    if(loginSuccess && loginSuccess.AuthenticationResult.AccessToken){
+        
+        localSave("idToken", loginSuccess.AuthenticationResult.IdToken).catch(error => console.error(error));
+        navigation.replace('Root')
+    }else {
+        alert("FAILED LOGIN")
+    }
+}
+
+export default function LoginScreen({
     navigation,
   }: StackNavigationProp<AuthParamList, 'LoginScreen'>) {
 
@@ -31,7 +44,6 @@ export default function LginScreen({
                     placeholderTextColor="#003f5c"
                     onChangeText={(userName) => {
                         setUserName(userName)
-                        // console.warn(userName)
                     } }
                 />
             </View>
@@ -43,7 +55,6 @@ export default function LginScreen({
                     placeholderTextColor="#003f5c"
                     secureTextEntry={true}
                     onChangeText={(password) => setPassword(password)}
-                    // onChangeText={(password) => this.setState({'password': password})}
                 />
             </View>
             <TouchableOpacity onPress={() => {
@@ -52,10 +63,9 @@ export default function LginScreen({
                 <Text style={styles.forgotPasswordButton}>No account? Sign up now!</Text>
             </TouchableOpacity>            
             <TouchableOpacity style={styles.loginButton}
-                onPress={() => {
+                onPress={async () => {
                     let params = setAuthParams();
-                    executeSignIn(params);
-                    navigation.replace('Root')
+                    login(params, navigation);
                 }}>
                 <Text>LOGIN</Text>
             </TouchableOpacity>
@@ -63,33 +73,10 @@ export default function LginScreen({
     );
   }
 
-//   const styles = StyleSheet.create({
-//     container: {
-//       flex: 1,
-//       backgroundColor: '#fff',
-//       alignItems: 'center',
-//       justifyContent: 'center',
-//       padding: 20,
-//     },
-//     title: {
-//       fontSize: 20,
-//       fontWeight: 'bold',
-//     },
-//     link: {
-//       marginTop: 15,
-//       paddingVertical: 15,
-//     },
-//     linkText: {
-//       fontSize: 14,
-//       color: '#2e78b7',
-//     },
-//   });
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        //justifyContent: 'center',
         flexDirection: 'column',
     },
     inputView: {
@@ -129,4 +116,3 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     }
   });
-  

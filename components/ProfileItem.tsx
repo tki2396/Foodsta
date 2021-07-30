@@ -4,13 +4,55 @@ import { useNavigation } from '@react-navigation/native';
 import { ProfileStackParamList } from '../types'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Text, View } from '../components/Themed';
-
+import * as SecureStore from 'expo-secure-store';
 
 type Props = {
     title: string,
     description: string,
     icon?: JSX.Element
 };
+
+type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, 'MyPostsScreen'>;
+
+const logout = () => {
+    SecureStore.deleteItemAsync('idToken')
+}
+
+const ProfileItem = (props: Props) => {
+    const navigation = useNavigation<ProfileScreenNavigationProp>();
+
+    const chooseScreen = () => {
+        let screen;
+        switch(props.title){
+            case 'Posts':
+                screen =  'MyPostsScreen'
+                break;
+            case 'Settings':
+                break;
+            case 'Log Out':
+                logout();
+                screen = 'Login'
+                break;
+        }
+        return screen
+    };
+
+    return(
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(chooseScreen())}>
+            
+            <View style={styles.icon}>{props.icon}</View>
+            <View style={styles.container_text}>
+                <Text style={styles.title}>
+                    {props.title}
+                </Text>
+                <Text style={styles.description}>
+                    {props.description}
+                </Text>
+            </View>
+
+        </TouchableOpacity>
+    );
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -36,71 +78,24 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 16,
         color: '#000',
-        //backgroundColor: 'pink'
     },
     container_text: {
         flex: 4,
         flexDirection: 'column',
-        //marginLeft: 12,
         justifyContent: 'center',
-        //backgroundColor: 'purple'
     },
     description: {
         fontSize: 11,
         fontStyle: 'italic',
-        //backgroundColor: 'blue'
     },
     photo: {
         height: 80,
         width: 80,
-        //backgroundColor: 'brown'
     },
     icon: {
-        //marginRight: 50,
-        //paddingLeft: 10,
-        //alignSelf: 'center',
-        //backgroundColor: 'yellow',
-        //backgroundColor:'red',
         flex: 1,
         justifyContent: 'center'
     },
 });
-
-type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, 'MyPostsScreen'>;
-
-const ProfileItem = (props: Props) => {
-    const navigation = useNavigation<ProfileScreenNavigationProp>();
-
-    const chooseScreen = () => {
-        let screen;
-        switch(props.title){
-            case 'Posts':
-                screen =  'MyPostsScreen'
-                break;
-            case 'Settings':
-                break;
-            case 'Log Out':
-                break;
-        }
-        return screen
-    };
-
-    return(
-        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(chooseScreen())}>
-            
-            <View style={styles.icon}>{props.icon}</View>
-            <View style={styles.container_text}>
-                <Text style={styles.title}>
-                    {props.title}
-                </Text>
-                <Text style={styles.description}>
-                    {props.description}
-                </Text>
-            </View>
-
-        </TouchableOpacity>
-    );
-}
-
 
 export default ProfileItem;
