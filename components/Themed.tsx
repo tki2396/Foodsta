@@ -43,7 +43,7 @@ export function View(props: ViewProps) {
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
 
   return(
-  <ScrollView contentContainerStyle={{flexGrow: 1}}> 
+  <ScrollView > 
       <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />
   </ScrollView>);
 }

@@ -19,6 +19,10 @@ import MyPostsScreen from '../screens/profile/MyPostsScreen';
 import CommentsScreen from '../screens/home/CommentsScreen'
 import { BottomTabParamList, HomeStackParamList, ProfileStackParamList, RecipesParamList, AuthParamList } from '../types';
 import RecipeInformation from '../screens/recipes/RecipeInformation';
+import LoginScreen from '../screens/auth/LoginScreen';
+import AuthStackNavigator from './AuthStackNavigator';
+import { RegistrationScreen } from '../screens/auth/RegistrationScreen';
+import SettingsScreen from '../screens/profile/Settings'
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -80,6 +84,11 @@ function HomeNavigator() {
         component={CommentsScreen}
         options={{ headerTitle: 'Comments' }}
       />
+      <ProfileStack.Screen
+        name="MyPostsScreen"
+        component={MyPostsScreen}
+        options={{ headerTitle: `tobiijose's posts` }}
+      />
     </HomeStack.Navigator>
   );
 }
@@ -99,6 +108,16 @@ function ProfileNavigator() {
         component={MyPostsScreen}
         options={{ headerTitle: `tobiijose's posts` }}
       />
+      <ProfileStack.Screen
+        name="SettingsScreen"
+        component={SettingsScreen}
+        options={{ headerTitle: `Settings` }}
+      />
+      <ProfileStack.Screen
+        name="AuthStackNavigator"
+        component={AuthStackNavigator}
+        options={{ headerTitle: `Login` }}
+      />
     </ProfileStack.Navigator>
   );
 }
@@ -116,10 +135,12 @@ function RecipesNavigator() {
       <RecipesStack.Screen 
         name="Recipes"
         component={RecipesScreen}
+        options={({ route }: any) => ({ title: route.params.cuisine })}
       />
       <RecipesStack.Screen 
         name="Recipe Information"
         component={RecipeInformation}
+        options={({ route }: any) => ({ title: route.params.recipeName })}
       />
     </RecipesStack.Navigator>
   );

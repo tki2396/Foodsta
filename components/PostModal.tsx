@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Image, Pressable, View, TextInput, Platform} from "react-native";
 import { AntDesign } from '@expo/vector-icons'
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import * as ImagePicker from 'expo-image-picker';
+import { ModalContext, ModalState } from '../context/AppContext';
+import { v4 as uuidv4 } from 'uuid';
+import * as Random from 'expo-random'
 
 type Props = {
-  username: string,
+  username: any,
 }
 
 const PostModal = (props: Props) => {
@@ -27,16 +29,11 @@ const PostModal = (props: Props) => {
       })();
     }, []);
 
-    const uuidv4 = () => {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        const uuid = v.toString(16);
-        setPostId(uuid);
-        return uuid;
-      });
-  }
+    const getuuid = async () => uuidv4( { random: await Random.getRandomBytesAsync( 16 ) } )
 
-    const createPost = () => {
+    const createPost = async () => {
+      let id =  getuuid().then(id => setPostId(id)).catch(error => console.error(error));
+
       fetch('https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/posts/create', {
         method: 'POST',
         headers: {
@@ -94,11 +91,11 @@ const PostModal = (props: Props) => {
         >
           <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                <View style={{flex: 1}}>
+                <View style={{flex: 1, flexDirection:'column'}}>
                   <Button title="Start with a picture!" onPress={pickImage} />
                   {imageUri && <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />}
                 </View>
-              <View style={{flex: 1, flexDirection: 'column', width: 200, justifyContent: 'center'}}> 
+              <View style={{flex: 2, paddingTop: 200, flexDirection: 'column', width: 200, justifyContent: 'center'}}> 
                   <TextInput
                     style={styles.titleInput}
                     onChangeText={setTitle}
@@ -113,7 +110,7 @@ const PostModal = (props: Props) => {
                   />
                 </View>
                 <View style={styles.buttonContainer}>
-                  <View style={styles.postButton}>
+                  <View>
                     <Button
                       title="Post"
                       onPress={() => {
@@ -122,7 +119,7 @@ const PostModal = (props: Props) => {
                       }}
                     />
                   </View>
-                  <View style={styles.postButton}>
+                  <View>
                     <Button
                       title="Cancel"
                       onPress={() => {
@@ -154,16 +151,11 @@ const PostModal = (props: Props) => {
       alignItems: "center",
       marginTop: 22,
     },
-    postButton:{
-      borderWidth:1,
-       borderColor:'rgba(0,0,0,0.2)',
-       alignItems:'center',
-       borderRadius:10,
-    },
     buttonContainer: {
       marginTop: 15,
       flexDirection: 'row',
-      justifyContent: 'flex-end',
+      flex: 1,
+      width: '100%'
     },
     modalView: {
       margin: 20,
@@ -207,4 +199,14 @@ const PostModal = (props: Props) => {
      },
   });
   
+  // const ModalWithContext = () => {
+  //   const [modalVisible, setModalVisible] = useState(false);
+    
+  //   return (
+  //     <ModalContext.Provider value={{setModalVisible, setModalVisible}}>
+  //       <PostModal />
+  //     </ModalContext.Provider>
+  //   )
+  // };
+
   export default PostModal;

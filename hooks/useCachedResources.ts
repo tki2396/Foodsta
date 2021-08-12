@@ -2,10 +2,11 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import * as React from 'react';
+import * as SecureStore from 'expo-secure-store';
 
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-
+  const [token, setToken] = React.useState<any>()
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
@@ -29,5 +30,17 @@ export default function useCachedResources() {
     loadResourcesAndDataAsync();
   }, []);
 
-  return isLoadingComplete;
+  React.useEffect(() => {
+  
+    async function getValueAsync() {
+      let result = await SecureStore.getItemAsync('idToken');
+      let username = await SecureStore.getItemAsync('username')
+      console.error("cached ",username);
+      setToken(result);
+    }
+
+    getValueAsync();
+  });
+
+  return {loaded: isLoadingComplete, token: token};
 }

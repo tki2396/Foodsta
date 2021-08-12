@@ -1,11 +1,23 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image, FlatList } from 'react-native';
-import { RootStackParamList } from '../types';
 
 type Props = {
     title: string,
     image: any,
 };
+
+const RecipeCategoryItem = (props: Props) => {
+    return(
+        <View style={styles.card}>
+            <View style={styles.photoContainer}>
+                <Image source={props.image} style={styles.photo}/>
+            </View>
+            <View style={styles.cardData}>
+                <Text style={{fontWeight: 'bold', fontSize: 20, textAlign: 'center', marginTop: 15}}>{ props.title }</Text>
+            </View>
+        </View>
+    )
+}
 
 const styles = StyleSheet.create({
     card:{
@@ -49,17 +61,4 @@ const styles = StyleSheet.create({
     }
 })
 
-const RecipeItem = (props: Props) => {
-    return(
-        <View style={styles.card}>
-            <View style={styles.photoContainer}>
-                <Image source={props.image} style={styles.photo}/>
-            </View>
-            <View style={styles.cardData}>
-                <Text style={{fontWeight: 'bold', fontSize: 20, textAlign: 'center', marginTop: 15}}>{ props.title }</Text>
-            </View>
-        </View>
-    )
-}
-
-export default RecipeItem;
+export default RecipeCategoryItem;

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Alert, Button, Modal, StyleSheet, Image, Pressable, View, TextInput, Platform} from "react-native";
-import { AntDesign } from '@expo/vector-icons'
+import { Alert, Button, Modal, StyleSheet, Image, Pressable, View, TextInput } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import * as ImagePicker from 'expo-image-picker';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ProfileStackParamList, HomeStackParamList } from "../../types";
 import Comment from '../../components/Comment';
@@ -41,8 +39,6 @@ const CommentsScreen = ({route}: StackNavigationProp<HomeStackParamList, 'Commen
 
     useEffect(() => {
       getComments(route.params.username, route.params.postId).then(json => setData(json['Items'])).catch(error => console.error(error))
-      console.error(data)
-      console.error("HELO")
     }, []);
 
 
@@ -79,17 +75,14 @@ const CommentsScreen = ({route}: StackNavigationProp<HomeStackParamList, 'Commen
       <View style={{flex: 1, backgroundColor:'white'}}>
         <View style={{flex:6}}>
           <View style={styles.comments}>
-            {/* <View style={styles.comment}> */}                
-                <FlatList
-                        horizontal={false}
-                        data={data}
-                        keyExtractor={item => item.id}
-                        renderItem={({ item }: any) => (
-                            <Comment username={route.params.username} commentText={item.comment} />
-                        )}
-                    />
-
-            {/* </View> */}
+              <FlatList
+                      horizontal={false}
+                      data={data}
+                      keyExtractor={item => item.id}
+                      renderItem={({ item }: any) => (
+                          <Comment username={route.params.username} commentText={item.comment} />
+                      )}
+                  />
           </View>
           </View>
           <View style={styles.makeComment}>
@@ -160,31 +153,21 @@ const CommentsScreen = ({route}: StackNavigationProp<HomeStackParamList, 'Commen
   const styles = StyleSheet.create({
     comments: {
       flex: 1,
-      //justifyContent: "center",
-      //alignItems: "center",
       marginTop: 22,
-      flexDirection: 'column',
-      // backgroundColor:'red',
-      
+      flexDirection: 'column',      
     },
     comment: {
-      // flex: 1,
       justifyContent: 'center',
-      //alignItems: "center",
-      //marginTop: 22,
       flexDirection: 'column',
-      // backgroundColor:'blue',
       width: '100%',
       height: 200
     },
     makeComment: {
       flex: 1,
-      //justifyContent: "center",
       alignItems: "center",
       marginTop: 22,
       paddingLeft: 15,
       flexDirection: 'row',
-      // backgroundColor: 'green'
     },
     postButton:{
       borderWidth:1,

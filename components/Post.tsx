@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
+import { StyleSheet, Image, FlatList, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements'
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Ionicons } from '@expo/vector-icons'
-import { Text, View } from '../components/Themed';
 import { useNavigation } from "@react-navigation/core";
-import {StackNavigationProp} from '@react-navigation/stack'
+import { StackNavigationProp } from '@react-navigation/stack'
 import { ProfileStackParamList } from '../types'
+import { globalStyles } from '../styles/GlobalStyles'
+import { MonoText as Text} from '../components/StyledText'
 
 type Props = {
     userName: string,
@@ -16,16 +16,13 @@ type Props = {
     image: string,
     title: string,
     postId: string,
+    avatarUri?: string
 };
 type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, 'ProfileScreen'>;
 
 const Post = (props: Props) => {
-    const [userName, setUserName] = useState('');
-    const [profilePicture, setProfilePicture] = useState('');
-    const [caption, setCaption] = useState('');
+
     const [liked, setLiked] = useState(false);
-    const [image, setImage] = useState('');
-    const [postId, setPostId] = useState('')
 
     const navigation = useNavigation<ProfileScreenNavigationProp>();
 
@@ -34,10 +31,12 @@ const Post = (props: Props) => {
     }
 
     return(
-        <View style={styles.cardContainer}>
-        <TouchableOpacity>
+        <View style={globalStyles.postContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate('MyPostsScreen', {postId: props.postId, username: props.userName})}>
                 <View style={styles.postHeader}>
-                    <Avatar rounded title='TI' avatarStyle={styles.cardAvatar} titleStyle={styles.title} size='medium'/>
+                    {/* <Avatar rounded title='TI' avatarStyle={styles.cardAvatar} titleStyle={styles.title} size='medium'/> */}
+                    {/* <Image source={require('../assets/images/food.jpg')} style={globalStyles.cardAvatar}></Image> */}
+                    <Ionicons style={globalStyles.cardAvatar} name="person-circle" size={50} color="black" />
                     <Text style={{fontSize: 18}}>{props.userName}</Text>
                 </View>
             </TouchableOpacity>
@@ -63,32 +62,6 @@ const Post = (props: Props) => {
 }
 
 const styles = StyleSheet.create({
-    cardContainer: {
-        flex: 1,
-        flexDirection: 'column',
-        marginBottom: 10,
-        backgroundColor: 'white',
-        borderRadius:10,
-        //flex: 1,
-        //flexDirection: 'row',
-        //borderRadius:20,
-        elevation: 3,
-        //backgroundColor: '#FFF',
-        shadowOffset: {
-            width: 1,
-            height: 1
-        },
-        shadowColor: '#333',
-        shadowOpacity: 0.3,
-        shadowRadius: 2,
-        marginHorizontal: 4,
-        //height: 350,
-        //width: "98%",
-        justifyContent: 'center',
-        //marginBottom: 25,
-        //paddingBottom: 50,
-        //marginTop: 15
-    },
     postHeader: {
         padding: 10,
         flexDirection: 'row',
@@ -101,30 +74,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    cardAvatar: {
-        backgroundColor: 'gray'
-    },
     title: {
         fontSize: 30,
         color: '#000',
         fontWeight: 'bold',
         marginTop: 10,
         flex: 2,
-    },
-    container_text: {
-        flexDirection: 'row',
+        textAlign: 'center'
     },
     captionContainer: {
         alignItems: 'center'
     },
     captionText: {
         fontSize: 20,
-        paddingBottom: 10
-    },
-    description: {
-        marginTop: 10,
-        fontSize: 11,
-        fontStyle: 'italic',
+        padding: 10
     },
     image: {
         width: '98%',

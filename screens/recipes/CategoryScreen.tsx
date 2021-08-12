@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { StyleSheet, Button, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Button, TouchableOpacity, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text } from '../../components/Themed';
 import { getCustomTabsSupportingBrowsersAsync } from 'expo-web-browser';
-import {useNavigation} from '@react-navigation/native';
-import Sandbox from '../../components/Sandbox'
-import RecipeItem from '../../components/RecipeItem';
-import layout from '../../constants/Layout'
+import { useNavigation } from '@react-navigation/native';
+import RecipeCategoryItem from '../../components/RecipeCategoryItem';
 import { FlatList } from 'react-native-gesture-handler';
 import { cuisines } from '../../constants/Constants'
 import { RecipesParamList } from '../../types';
@@ -28,7 +25,7 @@ export default function CategoryScreen({
           renderItem={({ item }) =>
           <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}} onPress={() => navigation.navigate('Recipes', {cuisine: item.title})}>
 
-            <RecipeItem
+            <RecipeCategoryItem
               title={item.title}
               image={item.image}/>
           </TouchableOpacity>

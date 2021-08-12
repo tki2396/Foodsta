@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { StyleSheet, TouchableOpacity, ActivityIndicator, FlatList, Alert, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack'
-import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text } from '../../components/Themed';
-import Feed from '../../components/feed';
-import { stringify } from 'querystring';
 import Post from '../../components/Post';
 import PostModal from '../../components/PostModal'
+import { AppContext } from '../../context/AppContext'
+import { localGet } from '../../services/MySecureStore'
+import * as SecureStore from 'expo-secure-store'
 
 function getData(){
   return fetch("https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/posts/getAll")
@@ -15,24 +15,34 @@ function getData(){
   .catch((error) => console.error(error))
 }
 
+
+
 const HomeScreen = () => {
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-
+  const [data, setData] = useState<any>([]);
+  const [username, setUsername] = useState<any>()
   useEffect(() => {
-    getData().then(json => setData(json)).catch(error => console.error(error)).finally(() => setLoading(false))
+    getData().then(json => setData(json)).catch(error => console.error(error)).finally(() => setLoading(false));
+    getUserName().then(res => setUsername(res))
   }, []);
+
+  const getUserName = async () => {
+
+    let res = await SecureStore.getItemAsync('username')
+    console.error(res)
+    return res;
+  }
 
   return (
 
-    <View style={{ flex: 1, padding: 10, flexDirection: 'column'}}>
+    <View style={{paddingTop:10}}>
       {isLoading ? <ActivityIndicator/> : (
         <FlatList
           refreshing={isLoading}
           onRefresh={() => getData().then(json => setData(json)).catch(err => console.log(err))}
           initialNumToRender={1}
           data={data}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item: any) => item.id}
           renderItem={({ item }: any) => (
             <Post
               userName={item['cognito-username']}
@@ -47,7 +57,7 @@ const HomeScreen = () => {
         
       )}
       <View style={styles.floatingButton}>
-        <PostModal username={'tobiijose'}/>
+        <PostModal username={username}/>
       </View>
     </View>
   );
@@ -55,8 +65,8 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'white'
+    // flex: 1,
+    // backgroundColor: 'white'
   },
   title: {
     fontSize: 20,

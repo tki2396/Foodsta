@@ -6,14 +6,14 @@ import { RecipesParamList } from '../../types';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text } from '../../components/Themed';
-import Feed from '../../components/feed';
+import RecipeFeed from '../../components/RecipeFeed';
 
 export default function RecipeScreen({
   route
 }: StackNavigationProp<RecipesParamList, 'RecipeScreen'>) {
 
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>([]);
   const {cuisine} = route.params
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function RecipeScreen({
     
   <View style={styles.container}>
       {isLoading ? <ActivityIndicator/> : (
-        <Feed itemList={data.Items}/>  
+        <RecipeFeed itemList={data.Items}/>  
       )}
     </View>
   );

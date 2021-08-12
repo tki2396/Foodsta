@@ -8,17 +8,16 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import Header from './components/Header'
 
-export default function App() {
+export default function App(){
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
-  if (!isLoadingComplete) {
+  if (!isLoadingComplete.loaded) {
     return null;
   } else {
     return (
       <SafeAreaProvider>
-        {/* <Header /> */}
-        <Navigation colorScheme={colorScheme} />
+        <Navigation colorScheme={colorScheme} token={isLoadingComplete.token}/>
         <StatusBar />
       </SafeAreaProvider>
     );
