@@ -13,7 +13,7 @@ export default function RecipeScreen({
 }: StackNavigationProp<RecipesParamList, 'RecipeScreen'>) {
 
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>([]);
   const {cuisine} = route.params
 
   useEffect(() => {

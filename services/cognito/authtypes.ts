@@ -8,7 +8,10 @@ export type RegistrationParams = {
     password: string,
     firstname: string,
     lastname: string,
-    email: string
+    email: string,
+    avatarUri: string | undefined,
+    avatarBase64: string | undefined
+    contentType?: string
 }
 
 export type AuthResponse = {

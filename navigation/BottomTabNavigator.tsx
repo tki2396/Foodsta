@@ -19,6 +19,10 @@ import MyPostsScreen from '../screens/profile/MyPostsScreen';
 import CommentsScreen from '../screens/home/CommentsScreen'
 import { BottomTabParamList, HomeStackParamList, ProfileStackParamList, RecipesParamList, AuthParamList } from '../types';
 import RecipeInformation from '../screens/recipes/RecipeInformation';
+import LoginScreen from '../screens/auth/LoginScreen';
+import AuthStackNavigator from './AuthStackNavigator';
+import { RegistrationScreen } from '../screens/auth/RegistrationScreen';
+import SettingsScreen from '../screens/profile/Settings'
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -103,6 +107,16 @@ function ProfileNavigator() {
         name="MyPostsScreen"
         component={MyPostsScreen}
         options={{ headerTitle: `tobiijose's posts` }}
+      />
+      <ProfileStack.Screen
+        name="SettingsScreen"
+        component={SettingsScreen}
+        options={{ headerTitle: `Settings` }}
+      />
+      <ProfileStack.Screen
+        name="AuthStackNavigator"
+        component={AuthStackNavigator}
+        options={{ headerTitle: `Login` }}
       />
     </ProfileStack.Navigator>
   );

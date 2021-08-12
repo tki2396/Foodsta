@@ -19,26 +19,27 @@ const logout = () => {
 }
 
 const ProfileItem = (props: Props) => {
-    const navigation = useNavigation<ProfileScreenNavigationProp>();
+    const navigation = useNavigation<any>();
 
     const chooseScreen = () => {
         let screen;
         switch(props.title){
             case 'Posts':
-                screen =  'MyPostsScreen'
+                screen = () => navigation.navigate('MyPostsScreen');
                 break;
             case 'Settings':
+                screen = () => navigation.navigate('SettingsScreen');
                 break;
             case 'Log Out':
-                logout();
-                screen = 'Login'
+                //logout();
+                //screen = () => navigation.navigate('LogBackIn');
                 break;
         }
         return screen
     };
 
     return(
-        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(chooseScreen())}>
+        <TouchableOpacity style={styles.container} onPress={chooseScreen()}>
             
             <View style={styles.icon}>{props.icon}</View>
             <View style={styles.container_text}>

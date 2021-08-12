@@ -5,12 +5,13 @@ import { Text } from '../../components/Themed';
 import ProfileItem from '../../components/ProfileItem';
 import { Ionicons } from '@expo/vector-icons'
 import PostModal from '../../components/PostModal'
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 const  ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View>
-      <Image source={require("../../assets/images/food.jpg")} style={styles.photo}/>
+        <Image source={require("../../assets/images/food.jpg")} style={styles.photo}/>
       </View>
       <View style={{flex: 1, flexDirection: 'column'}}>
         <ProfileItem title="Posts" description="My Posts" icon={<Ionicons name="home" size={32}/>}></ProfileItem>

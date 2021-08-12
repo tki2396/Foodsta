@@ -17,13 +17,7 @@ async function executeSignup(params: AuthTypes.RegistrationParams){
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        username: params.username,
-        password: params.password,
-        firstname: params.firstname,
-        lastname: params.lastname,
-        email: params.email
-      })
+      body: JSON.stringify(params)
     })
     .then((response) => response.json())
     .catch((error) => console.error(error))
