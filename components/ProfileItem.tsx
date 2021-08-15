@@ -33,7 +33,7 @@ const ProfileItem = (props: Props) => {
                 screen = () => navigation.navigate('SettingsScreen');
                 break;
             case 'Log Out':
-                logout();
+                //logout();
                 //screen = () => navigation.navigate('LogBackIn');
                 break;
         }
