@@ -1,17 +1,28 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 
 import { Text } from '../../components/Themed';
 import ProfileItem from '../../components/ProfileItem';
 import { Ionicons } from '@expo/vector-icons'
 import PostModal from '../../components/PostModal'
-import { MaterialIcons } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons';
+import { localGet } from '../../services/MySecureStore'
 
 const  ProfileScreen = () => {
+  const [username, setUsername] = useState('')
+  useEffect(() => {
+
+    fetch("https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/Tlasso14")
+    .then((response) => response.json())
+    .then(json => setUsername(json.Items[0].profilePicture))
+    .catch((error) => console.error(error))
+
+  }, []);
+  console.error("username ", username)
   return (
     <View style={styles.container}>
       <View>
-        <Image source={require("../../assets/images/food.jpg")} style={styles.photo}/>
+        <Image source={{uri: username}} style={styles.photo}/>
       </View>
       <View style={{flex: 1, flexDirection: 'column'}}>
         <ProfileItem title="Posts" description="My Posts" icon={<Ionicons name="home" size={32}/>}></ProfileItem>

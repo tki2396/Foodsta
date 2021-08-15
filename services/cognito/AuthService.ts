@@ -3,11 +3,6 @@ import { StyleSheet, Image, Text, StatusBar, TextInput, TouchableOpacity } from 
 import { View } from '../../components/Themed';
 import { Alert } from 'react-native';
 import * as AuthTypes from './authtypes'
-  
-interface State {
-    userName: string;
-    password: string;
-}
 
 async function executeSignup(params: AuthTypes.RegistrationParams){
 

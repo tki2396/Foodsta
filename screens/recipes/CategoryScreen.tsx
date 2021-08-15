@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { StyleSheet, Button, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Button, TouchableOpacity, View, FlatList } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from '../../components/Themed';
 import { getCustomTabsSupportingBrowsersAsync } from 'expo-web-browser';
 import { useNavigation } from '@react-navigation/native';
 import RecipeCategoryItem from '../../components/RecipeCategoryItem';
-import { FlatList } from 'react-native-gesture-handler';
 import { cuisines } from '../../constants/Constants'
 import { RecipesParamList } from '../../types';
 import PostModal from '../../components/PostModal'
@@ -21,15 +20,16 @@ export default function CategoryScreen({
         <FlatList
           numColumns={2}
           data={DATA}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) =>
+          keyExtractor={(item: any) => item.id}
+          renderItem={({ item }: any) => (
           <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}} onPress={() => navigation.navigate('Recipes', {cuisine: item.title})}>
 
             <RecipeCategoryItem
               title={item.title}
-              image={item.image}/>
+                image={item.image}
+              />
           </TouchableOpacity>
-          }
+          )}
         />
         <View style={styles.floatingButton}>
           <PostModal username="tobiijose"/>
@@ -37,6 +37,8 @@ export default function CategoryScreen({
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

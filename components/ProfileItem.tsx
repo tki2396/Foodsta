@@ -5,6 +5,7 @@ import { ProfileStackParamList } from '../types'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Text, View } from '../components/Themed';
 import * as SecureStore from 'expo-secure-store';
+import { localRevoke } from '../services/MySecureStore'
 
 type Props = {
     title: string,
@@ -15,7 +16,8 @@ type Props = {
 type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, 'MyPostsScreen'>;
 
 const logout = () => {
-    SecureStore.deleteItemAsync('idToken')
+    // SecureStore.deleteItemAsync('idToken')
+    localRevoke("idToken").then(() => alert("revoked")).catch((error: any) => console.error(error));
 }
 
 const ProfileItem = (props: Props) => {

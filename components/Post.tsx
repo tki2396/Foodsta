@@ -7,9 +7,10 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { ProfileStackParamList } from '../types'
 import { globalStyles } from '../styles/GlobalStyles'
 import { MonoText as Text} from '../components/StyledText'
+import PostHeader from '../components/PostHeader'
 
 type Props = {
-    userName: string,
+    username: string,
     avatarSrc: string,
     caption: string,
     liked: boolean,
@@ -32,13 +33,14 @@ const Post = (props: Props) => {
 
     return(
         <View style={globalStyles.postContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('MyPostsScreen', {postId: props.postId, username: props.userName})}>
-                <View style={styles.postHeader}>
+        <TouchableOpacity onPress={() => navigation.navigate('MyPostsScreen', {postId: props.postId, username: props.username})}>
+            <PostHeader username={props.username} avatar={props.avatarSrc}/>
+                {/* <View style={styles.postHeader}> */}
                     {/* <Avatar rounded title='TI' avatarStyle={styles.cardAvatar} titleStyle={styles.title} size='medium'/> */}
                     {/* <Image source={require('../assets/images/food.jpg')} style={globalStyles.cardAvatar}></Image> */}
-                    <Ionicons style={globalStyles.cardAvatar} name="person-circle" size={50} color="black" />
-                    <Text style={{fontSize: 18}}>{props.userName}</Text>
-                </View>
+                    {/* <Ionicons style={globalStyles.cardAvatar} name="person-circle" size={50} color="black" /> */}
+                    {/* <Text style={{fontSize: 18}}>{props.userName}</Text> */}
+                {/* </View> */}
             </TouchableOpacity>
             <Image style={styles.image} source={{uri: props.image}}/>
             <View style={styles.postFooter}>
@@ -62,12 +64,6 @@ const Post = (props: Props) => {
 }
 
 const styles = StyleSheet.create({
-    postHeader: {
-        padding: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
     postFooter: {
         padding: 10,
         flexDirection: 'row',

@@ -5,14 +5,14 @@ import { executeSignIn } from '../../services/cognito/AuthService'
 import { Text } from '../../components/Themed';
 import { AuthParams } from '../../services/cognito/authtypes'
 import { AuthParamList } from '../../types';
-import { localSave } from '../../services/MySecureStore'
+import { localSave, localRevoke } from '../../services/MySecureStore'
 
 const login = async (authParams: AuthParams, navigation: any) => {
     const loginSuccess = await executeSignIn(authParams);
-    console.error(loginSuccess);
-    if(loginSuccess && loginSuccess.AuthenticationResult.AccessToken){
+    console.error("LOGIN ",loginSuccess.authResponse);
+    if(loginSuccess && loginSuccess.authResponse.AuthenticationResult.AccessToken){
         
-        localSave("idToken", loginSuccess.AuthenticationResult.IdToken).catch(error => console.error(error));
+        localSave("idToken", loginSuccess.authResponse.AuthenticationResult.IdToken).then(() => localSave("username", loginSuccess.authResponse.user.username)).catch(error => console.error(error));
         
         navigation.replace('Root')
     }else {

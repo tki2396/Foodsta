@@ -21,9 +21,9 @@ const RecipeCategoryItem = (props: Props) => {
 
 const styles = StyleSheet.create({
     card:{
-        borderRadius:50,
+        borderRadius:10,
         elevation: 3,
-        backgroundColor: '#ffff',
+        backgroundColor: '#EEF0F2',
         shadowOffset: {
             width: 1,
             height: 1
@@ -48,9 +48,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     photo: {
-        height: 100,
-        width: 100,
-        borderRadius: 100,
+        height: 130,
+        width: 130,
+        borderRadius: 10,
         marginTop: 15,
         alignItems: 'center',
         justifyContent: 'center',
