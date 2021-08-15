@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useState, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, ActivityIndicator, FlatList, Button, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RecipesParamList } from '../../types';
 
+import { RecipesParamList } from '../../types';
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text } from '../../components/Themed';
 import RecipeFeed from '../../components/RecipeFeed';
@@ -14,7 +14,7 @@ export default function RecipeScreen({
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<any>([]);
-  const {cuisine} = route.params
+  const {cuisine} = route.params;
 
   useEffect(() => {
     
@@ -28,8 +28,10 @@ export default function RecipeScreen({
 
   return (
     
-  <View style={styles.container}>
+    <View style={styles.container}>
+   
       {isLoading ? <ActivityIndicator/> : (
+
         <RecipeFeed itemList={data.Items}/>  
       )}
     </View>

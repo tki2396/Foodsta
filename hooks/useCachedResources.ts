@@ -34,8 +34,6 @@ export default function useCachedResources() {
   
     async function getValueAsync() {
       let result = await SecureStore.getItemAsync('idToken');
-      let username = await SecureStore.getItemAsync('username')
-      console.error("cached ",username);
       setToken(result);
     }
 

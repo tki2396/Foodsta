@@ -29,7 +29,7 @@ const HomeScreen = () => {
   const getUserName = async () => {
 
     let res = await SecureStore.getItemAsync('username')
-    console.error(res)
+    console.error("username: ",res)
     return res;
   }
 
@@ -45,7 +45,7 @@ const HomeScreen = () => {
           keyExtractor={(item: any) => item.id}
           renderItem={({ item }: any) => (
             <Post
-              userName={item['cognito-username']}
+              username={item['cognito-username']}
               avatarSrc={""}
               caption={item.caption}
               liked={true}

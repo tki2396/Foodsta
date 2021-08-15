@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import { SearchBar } from 'react-native-elements';
+
 import Recipe from '../components/Recipe'
 
-const RecipeFeed = ({ itemList }: any) => (
+const RecipeFeed = ({ itemList }: any) => {
+
+
+    const [search, updateSearch] = useState('');
+
+    return(
+        <>
+    <SearchBar
+         placeholder="Search"
+         onChangeText={(val: string) => updateSearch(val)}
+         value={search}
+       />
+
     <FlatList
             initialNumToRender={1}
             data={itemList}
@@ -14,6 +28,7 @@ const RecipeFeed = ({ itemList }: any) => (
                 recipeId={item.RecipeId}
             />}
         />
-);
+    </>
+    )};
 
 export default RecipeFeed
