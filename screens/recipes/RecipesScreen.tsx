@@ -8,9 +8,9 @@ import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text } from '../../components/Themed';
 import RecipeFeed from '../../components/RecipeFeed';
 
-export default function RecipeScreen({
+const RecipeScreen = ({
   route
-}: StackNavigationProp<RecipesParamList, 'RecipeScreen'>) {
+}: StackNavigationProp<RecipesParamList, 'RecipeScreen'>) => {
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<any>([]);
@@ -26,8 +26,8 @@ export default function RecipeScreen({
   }, []);
 
 
+
   return (
-    
     <View style={styles.container}>
    
       {isLoading ? <ActivityIndicator/> : (
@@ -37,6 +37,7 @@ export default function RecipeScreen({
     </View>
   );
 }
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -65,4 +66,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 100, 
     }
-  });
+});
+
+export default RecipeScreen;
