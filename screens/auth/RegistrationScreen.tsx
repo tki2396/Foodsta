@@ -111,7 +111,7 @@ function RegistrationScreen({
                 </View>
                 <View style={[styles.inputView]}>
                     <TextInput
-                        style={styles.inputView}
+                        style={[styles.inputView, {color: 'black'}]}
                         placeholder="Password"
                         placeholderTextColor="black"
                         secureTextEntry={true}
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
         opacity: 0.3, 
         textAlign: 'center',
         marginBottom: 10,
+        fontWeight: 'bold'
     },
     TextInput: {
         flex: 1,

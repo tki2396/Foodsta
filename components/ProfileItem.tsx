@@ -6,8 +6,8 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { Text, View } from '../components/Themed';
 import * as SecureStore from 'expo-secure-store';
 import { localRevoke } from '../services/MySecureStore'
+import { AppContext } from '../context/AppContext';
 import { useContext } from 'react';
-import { AppContext, AuthContextType } from '../context/AppContext';
 
 type Props = {
     title: string,
@@ -17,16 +17,16 @@ type Props = {
 
 type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, 'MyPostsScreen'>;
 
-const logout = () => {
+const logout = async () => {
     // SecureStore.deleteItemAsync('idToken')
-    localRevoke("idToken").then(() => alert("revoked")).catch((error: any) => console.error(error));
+    localRevoke("idToken").then(() => console.error("revoked")).catch((error: any) => console.error(error));
 }
 
 const ProfileItem = (props: Props) => {
     const navigation = useNavigation<any>();
     const context = useContext(AppContext);
 
-    const chooseScreen = async () => {
+    const chooseScreen = () => {
         let screen;
         switch(props.title){
             case 'Posts':
@@ -36,9 +36,9 @@ const ProfileItem = (props: Props) => {
                 screen = () => navigation.navigate('SettingsScreen');
                 break;
             case 'Log Out':
-                //logout();
-                const token = await SecureStore.getItemAsync('idToken').then(token => token);
-                console.error("token ", token)
+                logout();
+                // const token = await SecureStore.getItemAsync('idToken').then(token => token);
+                console.error("token ")
                 screen = () => navigation.replace('login');
                 break;
         }
@@ -46,7 +46,7 @@ const ProfileItem = (props: Props) => {
     };
 
     return(
-        <TouchableOpacity style={styles.container} onPress={async () => chooseScreen()}>
+        <TouchableOpacity style={styles.container} onPress={chooseScreen()}>
             
             <View style={styles.icon}>{props.icon}</View>
             <View style={styles.container_text}>

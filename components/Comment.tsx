@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ProfileStackParamList } from '../types'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Text, View } from '../components/Themed';
-import { Avatar } from 'react-native-elements'
+import { AppContext } from '../context/AppContext';
+import { globalStyles } from '../styles/GlobalStyles'
 
 type Props = {
     username: string,
@@ -16,10 +17,20 @@ type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, 'M
 
 const Comment = (props: Props) => {
     const navigation = useNavigation<ProfileScreenNavigationProp>();
+    const context = useContext(AppContext)
+    const [avatar, setAvatar] = useState('')
+
+    useEffect(() => {
+        fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/${props.username}`)
+        .then((response) => response.json())
+        .then(json => setAvatar(json.Items[0].profilePicture))
+        .catch((error) => console.error(error))
+    },[]);
 
     return(
-        <View style={styles.container}>            
-            <Avatar rounded title='TI' avatarStyle={styles.cardAvatar} titleStyle={styles.title} size='small'/>
+        <View style={styles.container}> 
+                   
+            <Image source={{uri: context.profilePicture}} style={globalStyles.commentAvatar}></Image>
             <View style={styles.container_text}>
                 <Text style={styles.title}>
                     {props.username}

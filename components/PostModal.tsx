@@ -30,8 +30,7 @@ const PostModal = () => {
     const getuuid = async () => uuidv4( { random: await Random.getRandomBytesAsync( 16 ) } )
 
     const createPost = async () => {
-      let id =  getuuid().then(id => setPostId(id)).catch(error => console.error(error));
-
+      let id =  await getuuid().then(id => setPostId(id)).catch(error => console.error(error));
       fetch('https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/posts/create', {
         method: 'POST',
         headers: {
@@ -69,7 +68,6 @@ const PostModal = () => {
 
     const onSubmit = async () => {
       try {  
-        setTitle(title);
         createPost();
       } catch (e) {
         console.error(e)
@@ -181,7 +179,7 @@ const PostModal = () => {
         justifyContent: 'center',
         width: 70,
         height: 70,
-        backgroundColor: 'orange',
+        backgroundColor: '#FBAF00',
         borderRadius: 100,
     },
     titleInput: {
