@@ -5,7 +5,7 @@ import { executeSignIn } from '../../services/cognito/AuthService'
 import { Text } from '../../components/Themed';
 import { AuthParams } from '../../services/cognito/authtypes'
 import { AuthParamList } from '../../types';
-import { localSave, localRevoke } from '../../services/MySecureStore'
+import { localSave } from '../../services/MySecureStore'
 
 const login = async (authParams: AuthParams, navigation: any) => {
     const loginSuccess = await executeSignIn(authParams);

@@ -20,3 +20,9 @@ export type AuthResponse = {
     idToken: string,
     expiresIn: number
 }
+
+export type UserState = {
+    username: string,
+    token: string,
+    profilePicture: string
+}
