@@ -32,7 +32,7 @@ export default function CategoryScreen({
           )}
         />
         <View style={styles.floatingButton}>
-          <PostModal username="tobiijose"/>
+          <PostModal/>
         </View>      
     </View>
   );

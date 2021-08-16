@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 
 import { Text } from '../../components/Themed';
@@ -7,22 +7,24 @@ import { Ionicons } from '@expo/vector-icons'
 import PostModal from '../../components/PostModal'
 import { MaterialIcons } from '@expo/vector-icons';
 import { localGet } from '../../services/MySecureStore'
+import { AppContext } from '../../context/AppContext'
 
 const  ProfileScreen = () => {
-  const [username, setUsername] = useState('')
+  const [profilePicture, setProfilePicture] = useState('');
+  const context = useContext(AppContext);
+  console.error("context ", context);
   useEffect(() => {
 
     fetch("https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/Tlasso14")
     .then((response) => response.json())
-    .then(json => setUsername(json.Items[0].profilePicture))
+    .then(json => setProfilePicture(json.Items[0].profilePicture))
     .catch((error) => console.error(error))
 
   }, []);
-  console.error("username ", username)
   return (
     <View style={styles.container}>
       <View>
-        <Image source={{uri: username}} style={styles.photo}/>
+        <Image source={{uri: profilePicture}} style={styles.photo}/>
       </View>
       <View style={{flex: 1, flexDirection: 'column'}}>
         <ProfileItem title="Posts" description="My Posts" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
@@ -30,7 +32,7 @@ const  ProfileScreen = () => {
         <ProfileItem title="Log Out" description="Log Out" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
       </View>
       <View style={styles.floatingButton}>
-        <PostModal username='tobiijose'/>
+        <PostModal/>
       </View>
     </View>
   );

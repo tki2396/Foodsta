@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Alert, Button, Modal, StyleSheet, Image, Pressable, View, TextInput } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -8,6 +8,7 @@ import { Avatar } from 'react-native-elements'
 import { Text } from '../../components/Themed';
 import { FlatList } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'
+import { AppContext } from "../../context/AppContext";
 
 
 type FoodstaComment = {
@@ -34,7 +35,8 @@ const CommentsScreen = ({route}: StackNavigationProp<HomeStackParamList, 'Commen
     const [comment, setComment] = useState<FoodstaComment>()
     const [commentText, setCommentText] = useState('')
     const [loading, setLoading] = useState(true)
-    const [data, setData] = useState([])
+    const [data, setData] = useState([]);
+    const context = useContext(AppContext)
 
 
     useEffect(() => {
@@ -65,7 +67,7 @@ const CommentsScreen = ({route}: StackNavigationProp<HomeStackParamList, 'Commen
     const createComment = (commentText: string): FoodstaComment => {
       return {
         postId: route.params.postId,
-        username: route.params.username,
+        username: context.username,
         text: commentText,
         commentId: uuidv4(),
       }
@@ -80,10 +82,10 @@ const CommentsScreen = ({route}: StackNavigationProp<HomeStackParamList, 'Commen
                       data={data}
                       keyExtractor={item => item.id}
                       renderItem={({ item }: any) => (
-                          <Comment username={route.params.username} commentText={item.comment} />
+                          <Comment username={item['cognito-username']} commentText={item.comment} />
                       )}
                   />
-          </View>
+            </View>
           </View>
           <View style={styles.makeComment}>
             <Avatar rounded title='TI' avatarStyle={{backgroundColor: 'gray'}} titleStyle={{fontSize: 16,color: '#000'}} size='small'/>
@@ -121,34 +123,6 @@ const CommentsScreen = ({route}: StackNavigationProp<HomeStackParamList, 'Commen
     .then((response) => response.json())
     .catch((error) => console.error(error))
   }
-
-
-  const DATA = [
-    {
-        postId: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        commentText: 'this rice looks amazing!',
-        username: 'tobiijose',
-        commentId: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    },
-    {
-      postId: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      commentText: 'this rice looks amazing!',
-      username: 'tobiijose',
-      commentId: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    },
-    {
-      postId: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      commentText: 'this rice looks amazing!',
-      username: 'tobiijose',
-      commentId: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    },
-    {
-      postId: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      commentText: 'this rice looks amazing!',
-      username: 'tobiijose',
-      commentId: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-  },
-];
 
   const styles = StyleSheet.create({
     comments: {

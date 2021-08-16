@@ -10,7 +10,7 @@ import { MonoText as Text} from '../components/StyledText'
 import PostHeader from '../components/PostHeader'
 
 type Props = {
-    username: string,
+    postCreator: string,
     avatarSrc: string,
     caption: string,
     liked: boolean,
@@ -33,8 +33,8 @@ const Post = (props: Props) => {
 
     return(
         <View style={globalStyles.postContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('MyPostsScreen', {postId: props.postId, username: props.username})}>
-            <PostHeader username={props.username} avatar={props.avatarSrc}/>
+        <TouchableOpacity onPress={() => navigation.navigate('MyPostsScreen', {postId: props.postId, username: props.postCreator})}>
+            <PostHeader username={props.postCreator} avatar={props.avatarSrc}/>
                 {/* <View style={styles.postHeader}> */}
                     {/* <Avatar rounded title='TI' avatarStyle={styles.cardAvatar} titleStyle={styles.title} size='medium'/> */}
                     {/* <Image source={require('../assets/images/food.jpg')} style={globalStyles.cardAvatar}></Image> */}
@@ -50,7 +50,7 @@ const Post = (props: Props) => {
                 <Text style={styles.title}>
                     {props.title}
                 </Text>
-                <TouchableOpacity style={{flex: 1}} onPress={() => navigation.navigate('CommentsScreen', {postId: props.postId, username: 'tobiijose'})}>
+                <TouchableOpacity style={{flex: 1}} onPress={() => navigation.navigate('CommentsScreen', {postId: props.postId, username: props.postCreator})}>
                     {<Ionicons style={styles.commentIcon} name="chatbubble-outline" size={32} color="black" />}
                 </TouchableOpacity>
             </View>

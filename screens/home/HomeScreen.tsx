@@ -15,23 +15,14 @@ function getData(){
   .catch((error) => console.error(error))
 }
 
-
-
 const HomeScreen = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<any>([]);
-  const [username, setUsername] = useState<any>()
+  const context = useContext(AppContext);
+
   useEffect(() => {
     getData().then(json => setData(json)).catch(error => console.error(error)).finally(() => setLoading(false));
-    getUserName().then(res => setUsername(res))
   }, []);
-
-  const getUserName = async () => {
-
-    let res = await SecureStore.getItemAsync('username')
-    console.error("username: ",res)
-    return res;
-  }
 
   return (
 
@@ -45,7 +36,7 @@ const HomeScreen = () => {
           keyExtractor={(item: any) => item.id}
           renderItem={({ item }: any) => (
             <Post
-              username={item['cognito-username']}
+              postCreator={item['cognito-username']}
               avatarSrc={""}
               caption={item.caption}
               liked={true}
@@ -57,17 +48,13 @@ const HomeScreen = () => {
         
       )}
       <View style={styles.floatingButton}>
-        <PostModal username={username}/>
+        <PostModal/>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // backgroundColor: 'white'
-  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
