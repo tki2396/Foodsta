@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, TouchableOpacity, ActivityIndicator, Alert, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -7,9 +6,9 @@ import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text } from '../../components/Themed';
 import { stringify } from 'querystring';
 import Post from '../../components/Post';
-import PostModal from '../../components/PostModal'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ProfileStackParamList } from '../../types';
+import { AppContext } from '../../context/AppContext';
 
 function getData(username: any) {
   return fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/posts/${username}`)
@@ -21,27 +20,27 @@ const MyPostsScreen = ({route}: StackNavigationProp<ProfileStackParamList, 'MyPo
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<any>([]);
+  const context = useContext(AppContext);
 
   useEffect(() => {
-    getData(route.params.username)
+    getData(context.username)
     .then(json => setData(json))
     .catch(error => console.error(error))
     .finally(() => setLoading(false))
   }, []);
-  console.error(data)
   return (
 
     <View style={{paddingTop:10}}>
       {isLoading ? <ActivityIndicator/> : (
         <FlatList
           refreshing={isLoading}
-          onRefresh={() => getData(route.params.username).then(json => setData(json)).catch(err => console.log(err))}
+          onRefresh={() => getData(context.username).then(json => setData(json)).catch(err => console.log(err))}
           initialNumToRender={1}
           data={data.Items}
           keyExtractor={(item: any) => item.id}
           renderItem={({ item }: any) => (
             <Post
-              userName={item['cognito-username']}
+              postCreator={item['cognito-username']}
               avatarSrc={""}
               caption={item.caption}
               liked={true}
@@ -50,9 +49,7 @@ const MyPostsScreen = ({route}: StackNavigationProp<ProfileStackParamList, 'MyPo
               postId={item.id}/>
           )}
         />
-        
       )}
-
     </View>
   );
 }

@@ -33,7 +33,7 @@ const Post = (props: Props) => {
 
     return(
         <View style={globalStyles.postContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('MyPostsScreen', {postId: props.postId, username: props.postCreator})}>
+        <TouchableOpacity onPress={() => navigation.navigate('MyPostsScreen', {postId: props.postId})}>
             <PostHeader username={props.postCreator} avatar={props.avatarSrc}/>
                 {/* <View style={styles.postHeader}> */}
                     {/* <Avatar rounded title='TI' avatarStyle={styles.cardAvatar} titleStyle={styles.title} size='medium'/> */}
