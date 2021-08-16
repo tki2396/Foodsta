@@ -9,7 +9,6 @@ import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import LoginScreen from '../screens/auth/LoginScreen';
 import AuthStackNavigator from './AuthStackNavigator';
-import PostModal from '../components/PostModal';
 
 export default function Navigation({ colorScheme, token }: { colorScheme: ColorSchemeName, token: any }) {
   return (

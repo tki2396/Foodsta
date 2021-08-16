@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Image, Pressable, View, TextInput, Platform} from "react-native";
 import { AntDesign } from '@expo/vector-icons'
 import * as ImagePicker from 'expo-image-picker';
-import { ModalContext, ModalState } from '../context/AppContext';
 import { v4 as uuidv4 } from 'uuid';
 import * as Random from 'expo-random'
 
-type Props = {
-  username: any,
-}
+import { AppContext } from "../context/AppContext";
 
-const PostModal = (props: Props) => {
+const PostModal = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [title, setTitle] = useState('');
     const [caption, setCaption] = useState('');
     const [imageUri, setImage] = useState<string | null>();
     const [imageBase64, setImageBase64] = useState<string | undefined>()
-    const [postId, setPostId] = useState('')
-
+    const [postId, setPostId] = useState('');
+    const context = useContext(AppContext);
+  
     useEffect(() => {
       (async () => {
         if (Platform.OS !== 'web') {
@@ -41,7 +39,7 @@ const PostModal = (props: Props) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          username: props.username,
+          username: context.username,
           caption: caption,
           imageBase64: imageBase64,
           title: title,
