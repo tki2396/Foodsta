@@ -63,8 +63,7 @@ export const AppContextProvider = ( { children }: any) => {
 
         const proPic = async () => {
             let userDetails = await getUserDetails();
-            console.error("deets ",userDetails)
-            fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/${userDetails.username}`)
+            fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/Nba`)
             .then((response) => response.json())
             .then(json => setUserState(() =>  {
                 const ret: AuthContextType = { profilePicture: json.Items[0].profilePicture, username: userDetails.username, token: userDetails.token };

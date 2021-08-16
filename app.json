@@ -4,7 +4,7 @@
     "slug": "Foodsta",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/foodsta.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -19,7 +19,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tobi.foodsta",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {

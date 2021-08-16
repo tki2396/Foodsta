@@ -67,7 +67,8 @@ const PostModal = () => {
     };
 
     const onSubmit = async () => {
-      try {  
+      try {
+        
         createPost();
       } catch (e) {
         console.error(e)

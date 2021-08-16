@@ -8,7 +8,9 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import Header from './components/Header'
 import { AppContextProvider } from './context/AppContext'
+import { LogBox } from 'react-native';
 
+LogBox.ignoreLogs(['Warning: ...']);
 export default function App(){
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();

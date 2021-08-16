@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
      image :{
         marginTop:40,
         marginBottom: 40,
-        alignItems: "center"
+        alignItems: "center",
     },
     forgotPasswordButton: {
         height: 30,

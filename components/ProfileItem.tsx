@@ -30,6 +30,7 @@ const ProfileItem = (props: Props) => {
         let screen;
         switch(props.title){
             case 'Posts':
+                console.error(context)
                 screen = () => navigation.navigate('MyPostsScreen', {postCreator: context.username});
                 break;
             case 'Settings':
