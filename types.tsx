@@ -26,6 +26,7 @@ export type ProfileStackParamList = {
   ProfileScreen: undefined;
   MyPostsScreen: undefined;
   SettingsScreen: undefined;
+  LogBackIn: undefined;
 };
 
 export type RecipesParamList = {
@@ -40,6 +41,6 @@ export type RecipesParamList = {
 };
 
 export type AuthParamList = {
-  RegistrationScreen: undefined,
+  RegistrationScreen: undefined;
   LoginScreen: undefined;
 }

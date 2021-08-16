@@ -6,26 +6,39 @@ import { Text } from '../../components/Themed';
 import { AuthParams } from '../../services/cognito/authtypes'
 import { AuthParamList } from '../../types';
 import { localSave } from '../../services/MySecureStore'
+import { useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
 
-const login = async (authParams: AuthParams, navigation: any) => {
-    const loginSuccess = await executeSignIn(authParams);
-    console.error("LOGIN ",loginSuccess.authResponse);
-    if(loginSuccess && loginSuccess.authResponse.AuthenticationResult.AccessToken){
-        
-        localSave("idToken", loginSuccess.authResponse.AuthenticationResult.IdToken).then(() => localSave("username", loginSuccess.authResponse.user.username)).catch(error => console.error(error));
-        
-        navigation.replace('Root')
-    }else {
-        alert("FAILED LOGIN")
-    }
-}
-
-export default function LoginScreen({
+const LoginScreen = ({
     navigation,
-  }: StackNavigationProp<AuthParamList, 'LoginScreen'>) {
+  }: StackNavigationProp<AuthParamList, 'LoginScreen'>) => {
 
     const [userName, setUserName] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const context = useContext(AppContext);
+
+    // const login = (navigation: any) => {
+    //     console.error("context ", context)
+    //     let params = setAuthParams();
+    //     //context.login(params)
+    //     console.error(context)
+    //     if(context.username && context.token){            
+    //         navigation.replace('Root')
+    //     }else {
+    //         alert("FAILED LOGIN")
+    //     }
+    // }
+
+    const login = async (authParams: AuthParams, navigation: any) => {
+        const loginSuccess = await executeSignIn(authParams);
+        if(loginSuccess && loginSuccess.authResponse.AuthenticationResult.AccessToken){
+            
+            localSave("idToken", loginSuccess.authResponse.AuthenticationResult.IdToken).then(() => localSave("username", loginSuccess.user.username)).catch(error => console.error(error));
+            navigation.replace('Root')
+        }else {
+            alert("FAILED LOGIN")
+        }
+    }
 
     const setAuthParams = (): AuthParams => {
         let authParams: AuthParams = {
@@ -39,7 +52,7 @@ export default function LoginScreen({
         <View style={styles.container}>
             
               <View style={{alignItems: 'center', flex: 1, paddingBottom: 100}}>
-                    <Image source = {require('../../assets/images/food.jpg')} style={[styles.image]}/>
+                    <Image source = {require('../../assets/images/foodsta.png')} style={[styles.image]}/>
                 </View>
                 <KeyboardAvoidingView
                     style={styles.inputContainer} 
@@ -50,7 +63,7 @@ export default function LoginScreen({
                         <TextInput
                             style={styles.TextInput}
                             placeholder="Username"
-                            placeholderTextColor="#003f5c"
+                            placeholderTextColor="black"
                             onChangeText={(userName) => {
                                 setUserName(userName)
                             } }
@@ -61,7 +74,7 @@ export default function LoginScreen({
                         <TextInput
                             style={styles.TextInput}
                             placeholder="Password"
-                            placeholderTextColor="#003f5c"
+                            placeholderTextColor="black"
                             secureTextEntry={true}
                             onChangeText={(password) => setPassword(password)}
                         />
@@ -74,9 +87,9 @@ export default function LoginScreen({
                         <Text style={styles.forgotPasswordButton}>No account? Sign up now!</Text>
                     </TouchableOpacity>            
                     <TouchableOpacity style={styles.loginButton}
-                        onPress={async () => {
+                        onPress={() => {
                             let params = setAuthParams();
-                            login(params, navigation);
+                            login(params, navigation)
                     }}>
                         <Text>LOGIN</Text>
                     </TouchableOpacity>
@@ -118,7 +131,7 @@ const styles = StyleSheet.create({
     forgotPasswordButton: {
         height: 30,
         marginBottom: 30,
-        color: '#fff'
+        color: 'black'
     },
     loginButton: {
         width:"80%",
@@ -130,3 +143,5 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     }
   });
+
+export default LoginScreen;

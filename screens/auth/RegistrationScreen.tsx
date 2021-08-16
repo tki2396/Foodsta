@@ -53,20 +53,22 @@ function RegistrationScreen({
       };
     
     const renderAvatar = (avatarUri: any) => {
-        console.error(Image.getSize(avatarUri,
-            (width: number, height: number) => console.error(`width ${width} height ${height}`),
-            (error) => console.error(error)
-        ))
-        if(avatarUri !== null || avatarUri !== undefined){
-            return <Image source={{ uri: avatarUri }} style={{height: 150, width: 150}}/>
+        if(avatarUri){
+            return (
+                <>
+                    <Image source = {require('../../assets/images/foodsta.png')} style={[styles.image]}/>
+                    <Image source={{ uri: avatarUri }} style={{height: 150, width: 150}}/>
+                </>
+            )
+        } else {
+            return (<Image source = {require('../../assets/images/foodsta.png')} style={[styles.image]}/>)
         }
     }
 
     return (
         <View style={styles.container}>
             <View style={{flex: 1, flexDirection:'row', alignItems: 'center'}}>
-                <Image source = {require('../../assets/images/food.jpg')} style={[styles.image]}/>
-                {/* {renderAvatar(avatarUri)} */}
+                {renderAvatar(avatarUri)}
             </View>
             <KeyboardAvoidingView
                     style={{flex: 1}} 
@@ -76,7 +78,7 @@ function RegistrationScreen({
                     <TextInput
                         style={styles.inputView}
                         placeholder="First Name"
-                        placeholderTextColor="#003f5c"
+                        placeholderTextColor="black"
                         onChangeText={(firstName) => {
                             setFirstName(firstName)
                         }}
@@ -87,7 +89,7 @@ function RegistrationScreen({
                     <TextInput
                         style={styles.inputView}
                         placeholder="Last name"
-                        placeholderTextColor="#003f5c"
+                        placeholderTextColor="black"
                         onChangeText={(lastName) => setlastName(lastName)}
                     />
                 </View>
@@ -95,7 +97,7 @@ function RegistrationScreen({
                     <TextInput
                         style={styles.inputView}
                         placeholder="Email"
-                        placeholderTextColor="#003f5c"
+                        placeholderTextColor="black"
                         onChangeText={(email) => setEmail(email)}
                     />
                 </View>
@@ -103,7 +105,7 @@ function RegistrationScreen({
                     <TextInput
                         style={styles.inputView}
                         placeholder="userName"
-                        placeholderTextColor="#003f5c"
+                        placeholderTextColor="black"
                         onChangeText={(userName) => setUserName(userName)}
                     />
                 </View>
@@ -111,7 +113,7 @@ function RegistrationScreen({
                     <TextInput
                         style={styles.inputView}
                         placeholder="Password"
-                        placeholderTextColor="#003f5c"
+                        placeholderTextColor="black"
                         secureTextEntry={true}
                         onChangeText={(password) => setPassword(password)}
                     />
@@ -121,7 +123,6 @@ function RegistrationScreen({
             <TouchableOpacity style={styles.loginButton}
                 onPress={() => {
                     let params = setRegistrationParams();
-                    console.error(params)
                     executeSignup(params);
                     navigation.replace('Root')
                 }}>
@@ -143,11 +144,11 @@ const styles = StyleSheet.create({
         height: 56,
         borderWidth: 1,
         alignItems: "center",
-        backgroundColor: '#ffffff',
+        backgroundColor: '#fff',
         position: 'relative',
         opacity: 0.3, 
         textAlign: 'center',
-        marginBottom: 10
+        marginBottom: 10,
     },
     TextInput: {
         flex: 1,

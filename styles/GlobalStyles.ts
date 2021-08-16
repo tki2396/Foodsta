@@ -10,7 +10,7 @@ const globalStyles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         marginBottom: 10,
-        backgroundColor: '#EEF0F2',
+        backgroundColor: 'white',
         borderRadius:10,
         elevation: 3,
         shadowOffset: {

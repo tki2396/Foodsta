@@ -23,7 +23,7 @@ const MyPostsScreen = ({route}: StackNavigationProp<ProfileStackParamList, 'MyPo
   const context = useContext(AppContext);
 
   useEffect(() => {
-    getData(context.username)
+    getData(route.params.postCreator)
     .then(json => setData(json))
     .catch(error => console.error(error))
     .finally(() => setLoading(false))
@@ -34,7 +34,7 @@ const MyPostsScreen = ({route}: StackNavigationProp<ProfileStackParamList, 'MyPo
       {isLoading ? <ActivityIndicator/> : (
         <FlatList
           refreshing={isLoading}
-          onRefresh={() => getData(context.username).then(json => setData(json)).catch(err => console.log(err))}
+          onRefresh={() => getData(route.params.postCreator).then(json => setData(json)).catch(err => console.log(err))}
           initialNumToRender={1}
           data={data.Items}
           keyExtractor={(item: any) => item.id}

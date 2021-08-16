@@ -3,6 +3,7 @@ import { StyleSheet, Image, Text, StatusBar, TextInput, TouchableOpacity } from 
 import { View } from '../../components/Themed';
 import { Alert } from 'react-native';
 import * as AuthTypes from './authtypes'
+import * as SecureStore from 'expo-secure-store'
 
 async function executeSignup(params: AuthTypes.RegistrationParams){
 
@@ -35,4 +36,9 @@ async function executeSignIn(params: AuthTypes.AuthParams) {
       .catch((error) => Alert.alert(error))
 }
 
-export { executeSignup, executeSignIn } ;
+async function executeLogOut(){
+  SecureStore.deleteItemAsync('idToken');
+  SecureStore.deleteItemAsync("username");
+}
+
+export { executeSignup, executeSignIn, executeLogOut } ;
