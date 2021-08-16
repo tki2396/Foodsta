@@ -113,11 +113,6 @@ function ProfileNavigator() {
         component={SettingsScreen}
         options={{ headerTitle: `Settings` }}
       />
-      <ProfileStack.Screen
-        name="AuthStackNavigator"
-        component={AuthStackNavigator}
-        options={{ headerTitle: `Login` }}
-      />
     </ProfileStack.Navigator>
   );
 }

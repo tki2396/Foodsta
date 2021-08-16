@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Image, FlatList, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements'
 import { Ionicons } from '@expo/vector-icons'
@@ -11,11 +11,18 @@ type HeaderProps = {
 }
 
 const PostHeader = (props: HeaderProps) => {
+    const [avatar, setAvatar] = useState('')
+
+    useEffect(() => {
+        fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/${props.username}`)
+        .then((response) => response.json())
+        .then(json => setAvatar(json.Items[0].profilePicture))
+        .catch((error) => console.error(error))
+    },[]);
+
     return (
         <View style={styles.postHeader}>
-                            {/* <Avatar rounded title='TI' avatarStyle={styles.cardAvatar} titleStyle={styles.title} size='medium'/> */}
-                            {/* <Image source={require('../assets/images/food.jpg')} style={globalStyles.cardAvatar}></Image> */}
-            <Ionicons style={globalStyles.cardAvatar} name="person-circle" size={50} color="black" />
+            <Image source={{uri: avatar}} style={globalStyles.cardAvatar}></Image>
             <Text style={{fontSize: 18}}>{props.username}</Text>
         </View>
     )

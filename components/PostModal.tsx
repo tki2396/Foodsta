@@ -99,12 +99,14 @@ const PostModal = () => {
                     onChangeText={setTitle}
                     value={title}
                     placeholder="Title"
+                    placeholderTextColor="black"
                   />
                   <TextInput
                     style={styles.captionInput}
                     onChangeText={setCaption}
                     value={caption}
                     placeholder="Caption"
+                    placeholderTextColor="black"
                   />
                 </View>
                 <View style={styles.buttonContainer}>
@@ -188,23 +190,15 @@ const PostModal = () => {
       borderWidth: 2,
       height: 50,
       marginBottom: 20,
+      textAlign: 'center'
     },
     captionInput: {
        borderRadius: 15,
        borderColor: 'black',
        borderWidth: 2,
-       height: 50
+       height: 50,
+       textAlign: 'center'
      },
   });
-  
-  // const ModalWithContext = () => {
-  //   const [modalVisible, setModalVisible] = useState(false);
-    
-  //   return (
-  //     <ModalContext.Provider value={{setModalVisible, setModalVisible}}>
-  //       <PostModal />
-  //     </ModalContext.Provider>
-  //   )
-  // };
 
   export default PostModal;

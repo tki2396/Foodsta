@@ -17,7 +17,6 @@ type Props = {
     image: string,
     title: string,
     postId: string,
-    avatarUri?: string
 };
 type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, 'ProfileScreen'>;
 
@@ -33,14 +32,8 @@ const Post = (props: Props) => {
 
     return(
         <View style={globalStyles.postContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('MyPostsScreen', {postId: props.postId})}>
+        <TouchableOpacity onPress={() => navigation.navigate('MyPostsScreen', {postCreator: props.postCreator})}>
             <PostHeader username={props.postCreator} avatar={props.avatarSrc}/>
-                {/* <View style={styles.postHeader}> */}
-                    {/* <Avatar rounded title='TI' avatarStyle={styles.cardAvatar} titleStyle={styles.title} size='medium'/> */}
-                    {/* <Image source={require('../assets/images/food.jpg')} style={globalStyles.cardAvatar}></Image> */}
-                    {/* <Ionicons style={globalStyles.cardAvatar} name="person-circle" size={50} color="black" /> */}
-                    {/* <Text style={{fontSize: 18}}>{props.userName}</Text> */}
-                {/* </View> */}
             </TouchableOpacity>
             <Image style={styles.image} source={{uri: props.image}}/>
             <View style={styles.postFooter}>
@@ -69,6 +62,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    postHeader: {
+        padding: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     title: {
         fontSize: 30,

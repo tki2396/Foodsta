@@ -6,6 +6,8 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { Text, View } from '../components/Themed';
 import * as SecureStore from 'expo-secure-store';
 import { localRevoke } from '../services/MySecureStore'
+import { useContext } from 'react';
+import { AppContext, AuthContextType } from '../context/AppContext';
 
 type Props = {
     title: string,
@@ -22,26 +24,29 @@ const logout = () => {
 
 const ProfileItem = (props: Props) => {
     const navigation = useNavigation<any>();
+    const context = useContext(AppContext);
 
-    const chooseScreen = () => {
+    const chooseScreen = async () => {
         let screen;
         switch(props.title){
             case 'Posts':
-                screen = () => navigation.navigate('MyPostsScreen');
+                screen = () => navigation.navigate('MyPostsScreen', {postCreator: context.username});
                 break;
             case 'Settings':
                 screen = () => navigation.navigate('SettingsScreen');
                 break;
             case 'Log Out':
                 //logout();
-                //screen = () => navigation.navigate('LogBackIn');
+                const token = await SecureStore.getItemAsync('idToken').then(token => token);
+                console.error("token ", token)
+                screen = () => navigation.replace('login');
                 break;
         }
         return screen
     };
 
     return(
-        <TouchableOpacity style={styles.container} onPress={chooseScreen()}>
+        <TouchableOpacity style={styles.container} onPress={async () => chooseScreen()}>
             
             <View style={styles.icon}>{props.icon}</View>
             <View style={styles.container_text}>
@@ -77,6 +82,7 @@ const styles = StyleSheet.create({
         shadowColor: '#333',
         shadowOpacity: 0.3,
         shadowRadius: 2,
+        alignItems: 'center'
     },
     title: {
         fontSize: 16,

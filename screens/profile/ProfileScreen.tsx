@@ -12,24 +12,16 @@ import { AppContext } from '../../context/AppContext'
 const  ProfileScreen = () => {
   const [profilePicture, setProfilePicture] = useState('');
   const context = useContext(AppContext);
-  console.error("context ", context);
-  useEffect(() => {
 
-    fetch("https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/Tlasso14")
-    .then((response) => response.json())
-    .then(json => setProfilePicture(json.Items[0].profilePicture))
-    .catch((error) => console.error(error))
-
-  }, []);
   return (
     <View style={styles.container}>
       <View>
-        <Image source={{uri: profilePicture}} style={styles.photo}/>
+        <Image source={{uri: context.profilePicture}} style={styles.photo}/>
       </View>
-      <View style={{flex: 1, flexDirection: 'column'}}>
+      <View style={{flex:1}}>
         <ProfileItem title="Posts" description="My Posts" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
-        <ProfileItem title="Settings" description="Go to Settings" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
-        <ProfileItem title="Log Out" description="Log Out" icon={<Ionicons name="home" size={32}/>}></ProfileItem>
+        <ProfileItem title="Settings" description="Go to Settings" icon={<Ionicons name="ios-settings" size={32}/>}></ProfileItem>
+        <ProfileItem title="Log Out" description="Log Out" icon={<Ionicons name="log-out" size={32}/>}></ProfileItem>
       </View>
       <View style={styles.floatingButton}>
         <PostModal/>
