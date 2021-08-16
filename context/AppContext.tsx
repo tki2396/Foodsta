@@ -37,7 +37,7 @@ export const AppContextProvider = ( { children }: any) => {
 
     // }
 
-    // const login1 = async (authParams: AuthParams) => {
+    // const login = async (authParams: AuthParams) => {
     //     const loginSuccess = await AuthService.executeSignIn(authParams);
     //     console.error("LOGIN ",loginSuccess.authResponse);
     //     if(loginSuccess && loginSuccess.authResponse.AuthenticationResult.AccessToken){
@@ -63,7 +63,7 @@ export const AppContextProvider = ( { children }: any) => {
 
         const proPic = async () => {
             let userDetails = await getUserDetails();
-            fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/Tobi23`)
+            fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/Nba`)
             .then((response) => response.json())
             .then(json => setUserState(() =>  {
                 const ret: AuthContextType = { profilePicture: json.Items[0].profilePicture, username: userDetails.username, token: userDetails.token };

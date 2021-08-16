@@ -23,6 +23,8 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import AuthStackNavigator from './AuthStackNavigator';
 import { RegistrationScreen } from '../screens/auth/RegistrationScreen';
 import SettingsScreen from '../screens/profile/Settings'
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -87,7 +89,6 @@ function HomeNavigator() {
       <ProfileStack.Screen
         name="MyPostsScreen"
         component={MyPostsScreen}
-        options={{ headerTitle: `tobiijose's posts` }}
       />
     </HomeStack.Navigator>
   );
@@ -96,17 +97,19 @@ function HomeNavigator() {
 const ProfileStack = createStackNavigator<ProfileStackParamList>();
 
 function ProfileNavigator() {
+  const context = useContext(AppContext)
+
   return (
     <ProfileStack.Navigator>
       <ProfileStack.Screen
         name="ProfileScreen"
         component={ProfileScreen}
-        options={{ headerTitle: 'Profile' }}
+        options={{ headerTitle: `${context.username}` }}
       />
       <ProfileStack.Screen
         name="MyPostsScreen"
         component={MyPostsScreen}
-        options={{ headerTitle: `tobiijose's posts` }}
+        options={{ headerTitle: `${context.username}'s posts` }}
       />
       <ProfileStack.Screen
         name="SettingsScreen"
@@ -135,7 +138,8 @@ function RecipesNavigator() {
       <RecipesStack.Screen 
         name="Recipe Information"
         component={RecipeInformation}
-        options={({ route }: any) => ({ title: route.params.recipeName })}
+        options={({ route }: any) => ({ title: route.params.recipeName, headerTitleStyle:{maxWidth:250}})}
+        
       />
     </RecipesStack.Navigator>
   );

@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Alert, Button, Modal, StyleSheet, Image, Pressable, View, TextInput } from "react-native";
+import { Alert, Button, Modal, StyleSheet, Image, Pressable, View, TextInput, ActivityIndicator } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ProfileStackParamList, HomeStackParamList } from "../../types";
 import Comment from '../../components/Comment';
-import { Avatar } from 'react-native-elements'
 import { Text } from '../../components/Themed';
 import { FlatList } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'
 import { AppContext } from "../../context/AppContext";
-
+import { globalStyles } from '../../styles/GlobalStyles'
 
 type FoodstaComment = {
   postId: string,
@@ -34,17 +33,14 @@ const CommentsScreen = ({route}: StackNavigationProp<HomeStackParamList, 'Commen
     const [modalVisible, setModalVisible] = useState(false);
     const [comment, setComment] = useState<FoodstaComment>()
     const [commentText, setCommentText] = useState('')
-    const [loading, setLoading] = useState(true)
+    const [isLoading, setLoading] = useState(true)
     const [data, setData] = useState([]);
     const context = useContext(AppContext)
 
-
     useEffect(() => {
-      getComments(route.params.username, route.params.postId).then(json => setData(json['Items'])).catch(error => console.error(error))
+      getComments(route.params.username, route.params.postId).then(json => setData(json['Items'])).catch(error => console.error(error)).finally(() => setLoading(false))
     }, []);
 
-
-  
     const saveComment = (comment: FoodstaComment) => {
       fetch('https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/posts/addComment', {
         method: 'POST',
@@ -61,7 +57,7 @@ const CommentsScreen = ({route}: StackNavigationProp<HomeStackParamList, 'Commen
       })
       .then((response) => response.json())
       .catch((error) => console.error(error))
-      .finally(() => console.log("COMPLETE "));
+      .finally(() => alert("Comment Saved"));
     }
 
     const createComment = (commentText: string): FoodstaComment => {
@@ -77,7 +73,11 @@ const CommentsScreen = ({route}: StackNavigationProp<HomeStackParamList, 'Commen
       <View style={{flex: 1, backgroundColor:'white'}}>
         <View style={{flex:6}}>
           <View style={styles.comments}>
+          {isLoading ? <ActivityIndicator/> : (
+
               <FlatList
+                      refreshing={isLoading}
+                      onRefresh={() => getComments(route.params.username, route.params.postId).then(json => setData(json['Items'])).catch(error => console.error(error))}
                       horizontal={false}
                       data={data}
                       keyExtractor={item => item.id}
@@ -85,13 +85,15 @@ const CommentsScreen = ({route}: StackNavigationProp<HomeStackParamList, 'Commen
                           <Comment username={item['cognito-username']} commentText={item.comment} />
                       )}
                   />
+                    )}
             </View>
           </View>
           <View style={styles.makeComment}>
-            <Avatar rounded title='TI' avatarStyle={{backgroundColor: 'gray'}} titleStyle={{fontSize: 16,color: '#000'}} size='small'/>
-            <TextInput style={{borderColor:'red', width:'78%', marginLeft: 10, backgroundColor:'gray'}}
+            <Image source={{uri: context.profilePicture}} style={globalStyles.commentAvatar}></Image>
+            <TextInput style={{borderColor:'black', width:'78%', marginLeft: 10}}
                         placeholder='Leave a comment...'
                         textAlign='left'
+                        placeholderTextColor='black'
                         onChangeText={(text) => setCommentText(text)}
                 />
                 <TouchableOpacity onPress={() => {

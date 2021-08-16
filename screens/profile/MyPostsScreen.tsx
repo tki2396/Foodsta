@@ -28,6 +28,7 @@ const MyPostsScreen = ({route}: StackNavigationProp<ProfileStackParamList, 'MyPo
     .catch(error => console.error(error))
     .finally(() => setLoading(false))
   }, []);
+  
   return (
 
     <View style={{paddingTop:10}}>

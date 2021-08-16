@@ -6,6 +6,11 @@ const globalStyles = StyleSheet.create({
         width: 70,
         borderRadius: 70,
     },
+    commentAvatar: {
+        height: 35,
+        width: 35,
+        borderRadius: 35,
+    },
     postContainer: {
         flex: 1,
         flexDirection: 'column',
