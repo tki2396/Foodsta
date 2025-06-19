@@ -7,18 +7,19 @@ import { RecipesParamList } from '../../types';
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text } from '../../components/Themed';
 import RecipeFeed from '../../components/RecipeFeed';
+import { RouteProp } from '@react-navigation/core';
 
 const RecipeScreen = ({
   route
-}: StackNavigationProp<RecipesParamList, 'RecipeScreen'>) => {
+}: { route: RouteProp<RecipesParamList, 'RecipeScreen'> }) => {
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<any>([]);
-  const {cuisine} = route.params;
+  const { cuisine } = route.params;
 
   useEffect(() => {
-    
-    fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/recipes/cuisine/${cuisine}`)
+
+    fetch(`https://lgdbh21n11.execute-api.us-east-2.amazonaws.com/Prod/recipes/cuisine/${cuisine}`)
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
@@ -29,43 +30,43 @@ const RecipeScreen = ({
 
   return (
     <View style={styles.container}>
-   
-      {isLoading ? <ActivityIndicator/> : (
 
-        <RecipeFeed itemList={data.Items}/>  
+      {isLoading ? <ActivityIndicator /> : (
+
+        <RecipeFeed itemList={data.Items} />
       )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    title: {
-      fontSize: 20,
-      fontWeight: 'bold',
-    },
-    separator: {
-      marginVertical: 30,
-      height: 1,
-      width: '80%',
-    },
-    button: {
-      borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0.2)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 70,
-        position: 'absolute',
-        bottom: 10,
-        right: 10,
-        height: 70,
-        backgroundColor: '#fff',
-        borderRadius: 100, 
-    }
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
+  },
+  button: {
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    height: 70,
+    backgroundColor: '#fff',
+    borderRadius: 100,
+  }
 });
 
 export default RecipeScreen;

@@ -19,7 +19,8 @@ const RecipeFeed = ({ itemList }: any) => {
             placeholder="Type Here..."        
             lightTheme        
             round        
-            onChangeText={(text: any) => {
+            // @ts-ignore
+            onChangeText={(text) => {
                 searchFilterFunction(text)
                 updateSearch(text)
             }}
@@ -43,7 +44,7 @@ const RecipeFeed = ({ itemList }: any) => {
     return(
         <>
             <FlatList
-                ListHeaderComponent={renderHeader()}
+                ListHeaderComponent={renderHeader}
                 initialNumToRender={1}
                 data={data}
                 keyExtractor={item => item.RecipeId}

@@ -20,14 +20,14 @@ export default function AuthStackNavigator() {
 
   return (
 
-    <AuthStack.Navigator initialRouteName="Login">
+    <AuthStack.Navigator initialRouteName="LoginScreen">
       <AuthStack.Screen
-        name="Login"
+        name="LoginScreen"
         component={LoginScreen}
         options={{ headerTitle: 'LOGIN' }}
       />
       <AuthStack.Screen
-        name="Registration"
+        name="RegistrationScreen"
         component={RegistrationScreen}
         options={{ headerTitle: 'REGISTER' }}
       />

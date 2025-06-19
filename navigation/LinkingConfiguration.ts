@@ -7,34 +7,15 @@
 import * as Linking from 'expo-linking';
 
 export default {
-  prefixes: [Linking.makeUrl('/')],
+  prefixes: [Linking.createURL('/')],
   config: {
     screens: {
-      Login: {
-        screens: {
-          LoginScreen: 'loginscreen'
-        },
-      },
-      Registration: {
-        screens: {
-          LoginScreen: 'registration'
-        },
-      },
-      Root: {
-        screens: {
-          Home: {
-            screens: {
-              HomeScreen: 'home',
-            },
-          },
-          Proflie: {
-            screens: {
-              ProfileScreen: 'profile',
-            },
-          },
-        },
-      },
+      Login: 'Login',
+      Registration: 'Registration',
+      Root: 'Root',
+      Home: 'Home',
+      Profile: 'Profile',
       NotFound: '*',
     },
-  },
+  }
 };

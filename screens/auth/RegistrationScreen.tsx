@@ -6,11 +6,10 @@ import { Text } from '../../components/Themed';
 import { RegistrationParams } from '../../services/cognito/authtypes'
 import { RootStackParamList, AuthParamList } from '../../types';
 import * as ImagePicker from 'expo-image-picker';
+import { useNavigation } from '@react-navigation/native';
 
-function RegistrationScreen({
-    navigation,
-  }: StackNavigationProp<AuthParamList, 'RegistrationScreen'>) {
-
+function RegistrationScreen() {
+    const navigation = useNavigation<StackNavigationProp<AuthParamList, 'RegistrationScreen'>>();
     const [firstName, setFirstName] = useState('');
     const [lastName, setlastName] = useState('');
     const [email, setEmail] = useState('');
@@ -43,9 +42,9 @@ function RegistrationScreen({
             base64: true,
         });
       
-        if (!result.cancelled) {
-            setAvatarUri(result.uri);
-            setAvatarBase64(result.base64);
+        if (!result.canceled) {
+            setAvatarUri(result.assets[0].uri);
+            setAvatarBase64(result.assets[0].base64!);
         } else{
             setAvatarUri('');
             setAvatarBase64('');
@@ -124,7 +123,7 @@ function RegistrationScreen({
                 onPress={() => {
                     let params = setRegistrationParams();
                     executeSignup(params);
-                    navigation.replace('Root')
+                    navigation.getParent()?.navigate('Root')
                 }}>
                 <Text>SUBMIT</Text>
             </TouchableOpacity>

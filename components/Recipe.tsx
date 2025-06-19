@@ -20,7 +20,7 @@ type RecipeScreenNavigationProp = StackNavigationProp<RecipesParamList, 'RecipeI
 const Recipe = (props: Props) => {
     const navigation = useNavigation<RecipeScreenNavigationProp>();
     return(
-        <TouchableOpacity style={[globalStyles.postContainer, {marginTop: 10}]} onPress={() => navigation.navigate('Recipe Information', { recipeId: props.recipeId, recipeName: props.title })}>
+        <TouchableOpacity style={[globalStyles.postContainer, {marginTop: 10}]} onPress={() => navigation.navigate('RecipeInformation', { recipeId: props.recipeId, recipeName: props.title })}>
             <View style={{flex: 1, flexDirection: 'column', marginBottom: 10}}>
         
                 <Image style={styles.photo} source={{uri: props.image_url}}/>

@@ -25,7 +25,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator(route: any) {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={route.route}>
-      <Stack.Screen name="login" component={AuthStackNavigator} />
+      <Stack.Screen name="Login" component={AuthStackNavigator} />
       <Stack.Screen name="Root" component={BottomTabNavigator} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
@@ -33,6 +33,6 @@ function RootNavigator(route: any) {
 }
 
 const chooseRoute = (token: any) => {
-  let route =  token ? "Root" : "login";
+  let route =  token ? "Root" : "Login";
   return route;
 }

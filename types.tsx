@@ -19,12 +19,13 @@ export type BottomTabParamList = {
 export type HomeStackParamList = {
   HomeScreen: undefined;
   PostsScreen: undefined;
-  CommentsScreen: undefined;
+  CommentsScreen: { postId: string, username: string };
 };
 
 export type ProfileStackParamList = {
   ProfileScreen: undefined;
-  MyPostsScreen: undefined;
+  MyPostsScreen: { postCreator: string };
+  CommentsScreen: { postId: string, username: string };
   SettingsScreen: undefined;
   LogBackIn: undefined;
 };

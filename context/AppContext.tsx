@@ -18,7 +18,7 @@ export type AuthContextType = {
     profilePicture: any
 }
 
-export const AppContextProvider = ( { children }: any) => {
+export const AppContextProvider = ({ children }: any) => {
     const [userState, setUserState] = useState<AuthContextType>({
         username: '',
         token: '',
@@ -41,7 +41,7 @@ export const AppContextProvider = ( { children }: any) => {
     //     const loginSuccess = await AuthService.executeSignIn(authParams);
     //     console.error("LOGIN ",loginSuccess.authResponse);
     //     if(loginSuccess && loginSuccess.authResponse.AuthenticationResult.AccessToken){
-            
+
     //         SecureStore.setItemAsync("idToken", loginSuccess.authResponse.AuthenticationResult.IdToken).then(() => SecureStore.setItemAsync("username", loginSuccess.user.username)).catch(error => console.error(error));
     //         setUserState(() => {
     //             const ret: AuthContextType = { profilePicture: '', username: loginSuccess.user.username, token: loginSuccess.authResponse.AuthenticationResult.IdToken }
@@ -51,30 +51,30 @@ export const AppContextProvider = ( { children }: any) => {
     //         alert("FAILED LOGIN")
     //     }
     // }
-    
+
 
     const getUserDetails = async () => {
         const uname = await SecureStore.getItemAsync("username");
         const token = await SecureStore.getItemAsync("idToken");
-        return {username: uname, token: token};
+        return { username: uname, token: token };
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const proPic = async () => {
-            let userDetails = await getUserDetails();
-            fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/Nba`)
-            .then((response) => response.json())
-            .then(json => setUserState(() =>  {
-                const ret: AuthContextType = { profilePicture: json.Items[0].profilePicture, username: userDetails.username, token: userDetails.token };
-                return ret;
-            }))
-            .catch((error) => console.error(error))
-        }
-        proPic();
-       
+    //     const proPic = async () => {
+    //         let userDetails = await getUserDetails();
+    //         fetch(`https://lgdbh21n11.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/Nba`)
+    //         .then((response) => response.json())
+    //         .then(json => setUserState(() =>  {
+    //             const ret: AuthContextType = { profilePicture: json.Items[0].profilePicture, username: userDetails.username, token: userDetails.token };
+    //             return ret;
+    //         }))
+    //         .catch((error) => console.error(error))
+    //     }
+    //     proPic();
 
-    }, []);
+
+    // }, []);
 
     return (
         <AppContext.Provider value={userState}>

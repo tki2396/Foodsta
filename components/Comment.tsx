@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, ReactElement } from 'react';
 import { StyleSheet, Image, FlatList, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ProfileStackParamList } from '../types'
@@ -10,7 +10,7 @@ import { globalStyles } from '../styles/GlobalStyles'
 type Props = {
     username: string,
     commentText: string,
-    icon?: JSX.Element
+    icon?: ReactElement
 };
 
 type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, 'MyPostsScreen'>;
@@ -21,7 +21,7 @@ const Comment = (props: Props) => {
     const [avatar, setAvatar] = useState('')
 
     useEffect(() => {
-        fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/${props.username}`)
+        fetch(`https://lgdbh21n11.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/${props.username}`)
         .then((response) => response.json())
         .then(json => setAvatar(json.Items[0].profilePicture))
         .catch((error) => console.error(error))

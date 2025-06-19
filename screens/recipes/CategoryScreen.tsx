@@ -10,11 +10,9 @@ import { cuisines } from '../../constants/Constants'
 import { RecipesParamList } from '../../types';
 import PostModal from '../../components/PostModal'
 
-export default function CategoryScreen({
-  navigation
-}: StackNavigationProp<RecipesParamList, 'RecipeScreen'>) {
+export default function CategoryScreen() {
 
-
+  const navigation = useNavigation<StackNavigationProp<RecipesParamList, 'RecipeScreen'>>();
   return (
     <View style={styles.container}>
         <FlatList
@@ -22,7 +20,7 @@ export default function CategoryScreen({
           data={DATA}
           keyExtractor={(item: any) => item.id}
           renderItem={({ item }: any) => (
-          <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}} onPress={() => navigation.navigate('Recipes', {cuisine: item.title})}>
+          <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center'}} onPress={() => navigation.navigate('RecipeScreen', {cuisine: item.title})}>
 
             <RecipeCategoryItem
               title={item.title}

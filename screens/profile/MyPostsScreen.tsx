@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, TouchableOpacity, ActivityIndicator, Alert, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { RouteProp } from '@react-navigation/native';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text } from '../../components/Themed';
@@ -10,13 +11,15 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { ProfileStackParamList } from '../../types';
 import { AppContext } from '../../context/AppContext';
 
+type MyPostsScreenRouteProp = RouteProp<ProfileStackParamList, 'MyPostsScreen'>;
+
 function getData(username: any) {
-  return fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/posts/${username}`)
+  return fetch(`https://lgdbh21n11.execute-api.us-east-2.amazonaws.com/Prod/posts/${username}`)
   .then((response) => response.json())
   .catch((error) => console.error(error))
 }
 
-const MyPostsScreen = ({route}: StackNavigationProp<ProfileStackParamList, 'MyPostsScreen'>) => {
+const MyPostsScreen = ({ route }: { route: MyPostsScreenRouteProp }) => {
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<any>([]);

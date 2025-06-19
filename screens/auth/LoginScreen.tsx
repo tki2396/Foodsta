@@ -8,11 +8,10 @@ import { AuthParamList } from '../../types';
 import { localSave } from '../../services/MySecureStore'
 import { useContext } from 'react';
 import { AppContext } from '../../context/AppContext';
+import { useNavigation } from '@react-navigation/native';
 
-const LoginScreen = ({
-    navigation,
-  }: StackNavigationProp<AuthParamList, 'LoginScreen'>) => {
-
+const LoginScreen = () => {
+    const navigation = useNavigation<StackNavigationProp<AuthParamList, 'LoginScreen'>>();
     const [userName, setUserName] = React.useState('');
     const [password, setPassword] = React.useState('');
     const context = useContext(AppContext);
@@ -31,6 +30,7 @@ const LoginScreen = ({
 
     const login = async (authParams: AuthParams, navigation: any) => {
         const loginSuccess = await executeSignIn(authParams);
+        console.log(loginSuccess)
         if(loginSuccess && loginSuccess.authResponse.AuthenticationResult.AccessToken){
             
             localSave("idToken", loginSuccess.authResponse.AuthenticationResult.IdToken).then(() => localSave("username", loginSuccess.user.username)).catch(error => console.error(error));
@@ -82,7 +82,7 @@ const LoginScreen = ({
                 </KeyboardAvoidingView>
                 <View style={{flex: 1, alignItems:'center'}}>
                     <TouchableOpacity onPress={() => {
-                            navigation.push('Registration')
+                            navigation.push('RegistrationScreen')
                     }}>
                         <Text style={styles.forgotPasswordButton}>No account? Sign up now!</Text>
                     </TouchableOpacity>            

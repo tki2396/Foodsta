@@ -14,7 +14,7 @@ const PostHeader = (props: HeaderProps) => {
     const [avatar, setAvatar] = useState('')
 
     useEffect(() => {
-        fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/${props.username}`)
+        fetch(`https://lgdbh21n11.execute-api.us-east-2.amazonaws.com/Prod/users/profilePicture/${props.username}`)
         .then((response) => response.json())
         .then(json => setAvatar(json.Items[0].profilePicture))
         .catch((error) => console.error(error))

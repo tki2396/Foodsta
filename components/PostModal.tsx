@@ -31,7 +31,7 @@ const PostModal = () => {
 
     const createPost = async () => {
       let id =  await getuuid().then(id => setPostId(id)).catch(error => console.error(error));
-      fetch('https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/posts/create', {
+      fetch('https://lgdbh21n11.execute-api.us-east-2.amazonaws.com/Prod/posts/create', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -60,9 +60,9 @@ const PostModal = () => {
         base64: true,
       });
     
-      if (!result.cancelled) {
-        setImage(result.uri);
-        setImageBase64(result.base64);
+      if (!result.canceled) {
+        setImage(result.assets[0].uri);
+        setImageBase64(result.assets[0].base64!);
       }
     };
 

@@ -35,7 +35,7 @@ export default function BottomTabNavigator() {
 
     <BottomTab.Navigator
       initialRouteName="Home"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      screenOptions={{ tabBarActiveTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
         name="Home"
         component={HomeNavigator}
@@ -44,7 +44,7 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Recipes"
+        name="Feed"
         component={RecipesNavigator}
         options={{
           tabBarIcon: ({ color }: any) => <TabBarIcon name="fast-food-outline" color={color} />,
@@ -54,7 +54,7 @@ export default function BottomTabNavigator() {
         name="Profile"
         component={ProfileNavigator}
         options={{
-          tabBarIcon: ({ color }: any) => <TabBarIcon name="md-person-outline" color={color} />,
+          tabBarIcon: ({ color }: any) => <TabBarIcon name="person-outline" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -131,12 +131,12 @@ function RecipesNavigator() {
         options={{ headerTitle: 'Categories' }}
       />
       <RecipesStack.Screen 
-        name="Recipes"
+        name="RecipeScreen"
         component={RecipesScreen}
         options={({ route }: any) => ({ title: route.params.cuisine })}
       />
       <RecipesStack.Screen 
-        name="Recipe Information"
+        name="RecipeInformation"
         component={RecipeInformation}
         options={({ route }: any) => ({ title: route.params.recipeName, headerTitleStyle:{maxWidth:250}})}
         

@@ -5,10 +5,11 @@ import { RecipesParamList } from '../../types';
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Ionicons } from '@expo/vector-icons'
 import { Text } from '../../components/Themed';
+import { RouteProp } from '@react-navigation/native';
 
 const RecipeInformation = ({
     route
-  }: StackNavigationProp<RecipesParamList, 'RecipeInformation'>) => {
+  }: {route: RouteProp<RecipesParamList, 'RecipeInformation'>}) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState<any>([]);
     const [completed, setCompleted] = useState(false);
@@ -16,7 +17,7 @@ const RecipeInformation = ({
 
     useEffect(() => {
     
-        fetch(`https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/recipes/${route.params.recipeId}/information`)
+        fetch(`https://lgdbh21n11.execute-api.us-east-2.amazonaws.com/Prod/recipes/${route.params.recipeId}/information`)
           .then((response) => response.json())
           .then((json) => setData(json))
           .catch((error) => console.error(error))

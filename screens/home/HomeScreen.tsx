@@ -10,7 +10,7 @@ import { localGet } from '../../services/MySecureStore'
 import * as SecureStore from 'expo-secure-store'
 
 function getData(){
-  return fetch("https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/posts/getAll")
+  return fetch("https://lgdbh21n11.execute-api.us-east-2.amazonaws.com/Prod/posts/getAll")
   .then((response) => response.json())
   .catch((error) => console.error(error))
 }

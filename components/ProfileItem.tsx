@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ProfileStackParamList } from '../types'
@@ -12,7 +12,7 @@ import { useContext } from 'react';
 type Props = {
     title: string,
     description: string,
-    icon?: JSX.Element
+    icon?: ReactElement
 };
 
 type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, 'MyPostsScreen'>;
@@ -37,17 +37,20 @@ const ProfileItem = (props: Props) => {
                 screen = () => navigation.navigate('SettingsScreen');
                 break;
             case 'Log Out':
+                console.log("log out")
                 logout();
                 // const token = await SecureStore.getItemAsync('idToken').then(token => token);
                 console.error("token ")
                 screen = () => navigation.replace('login');
                 break;
+            default:
+                break
         }
         return screen
     };
 
     return(
-        <TouchableOpacity style={styles.container} onPress={chooseScreen()}>
+        <TouchableOpacity style={styles.container} onPress={chooseScreen}>
             
             <View style={styles.icon}>{props.icon}</View>
             <View style={styles.container_text}>

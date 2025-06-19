@@ -5,40 +5,46 @@ import { Alert } from 'react-native';
 import * as AuthTypes from './authtypes'
 import * as SecureStore from 'expo-secure-store'
 
-async function executeSignup(params: AuthTypes.RegistrationParams){
+async function executeSignup(params: AuthTypes.RegistrationParams) {
 
-    fetch('https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/create', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(params)
-    })
-    .then((response) => response.json())
-    .catch((error) => console.error(error))
-    .finally(() => console.log("COMPLETE "));
-}
-
-async function executeSignIn(params: AuthTypes.AuthParams) {    
-    return fetch('https://08arlo5gu0.execute-api.us-east-2.amazonaws.com/Prod/users/auth', {
+    fetch('https://lgdbh21n11.execute-api.us-east-2.amazonaws.com/Prod/users/create', {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    })
+        .then((response) => response.json())
+        .catch((error) => console.error(error))
+        .finally(() => console.log("COMPLETE "));
+}
+
+async function executeSignIn(params: AuthTypes.AuthParams) {
+    console.log({
+        username: params.username,
+        password: params.password,
+    })
+    const resp = await fetch('https://lgdbh21n11.execute-api.us-east-2.amazonaws.com/Prod/users/auth', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          username: params.username,
-          password: params.password,
+            username: params.username,
+            password: params.password,
         })
-      })
-      .then(response => response.json())
-      .catch((error) => Alert.alert(error))
+    })
+        .then(response => response.json())
+        .catch((error) => Alert.alert(error))
+    console.log(resp)
+    return resp
 }
 
-async function executeLogOut(){
-  SecureStore.deleteItemAsync('idToken');
-  SecureStore.deleteItemAsync("username");
+async function executeLogOut() {
+    SecureStore.deleteItemAsync('idToken');
+    SecureStore.deleteItemAsync("username");
 }
 
-export { executeSignup, executeSignIn, executeLogOut } ;
+export { executeSignup, executeSignIn, executeLogOut };
